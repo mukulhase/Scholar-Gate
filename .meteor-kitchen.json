@@ -10,7 +10,7 @@
 		},
 		{
 			"path": "imports/startup/client/client.js",
-			"checksum": "5acc14d41ac746c27a8b8615d235a5e44d33c76d"
+			"checksum": "a6b13277b514f9ce9d94a3e3da7a763234328bd4"
 		},
 		{
 			"path": "client/index.html",
@@ -18,7 +18,7 @@
 		},
 		{
 			"path": "imports/startup/server/server.js",
-			"checksum": "5838a8c22d2f71bb2c90f98b0346b43fc99ba3f6"
+			"checksum": "98cfb43f14f62e6d8e0a74359d0b3eaf27dcfd90"
 		},
 		{
 			"path": "imports/ui/pages/not_found/not_found.jsx",
@@ -262,7 +262,7 @@
 		},
 		{
 			"path": "imports/api/collections/both/joins/joins.js",
-			"checksum": "90cb2e3180878b22edd3cd16bff3a451ef157b29"
+			"checksum": "4824611f7296feefa8079090af5387fef450dc72"
 		},
 		{
 			"path": "imports/ui/stylesheets/styles/animate_visible.js",
