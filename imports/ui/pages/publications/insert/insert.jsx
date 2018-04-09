@@ -7,7 +7,6 @@ import {Publications} from "/imports/api/collections/publications.js";
 import * as formUtils from "/imports/modules/client/form_utils";
 import {Files} from "/imports/api/collections/files.js";
 
-
 export class PublicationsInsertPage extends Component {
 	constructor () {
 		super();
