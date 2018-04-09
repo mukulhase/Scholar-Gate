@@ -1,15 +1,10 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withTracker, createContainer } from "meteor/react-meteor-data";
-import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
+import React, {Component} from "react";
+import {createContainer, withTracker} from "meteor/react-meteor-data";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
-import {mergeObjects} from "/imports/modules/both/object_utils";
+import * as objectUtils from "/imports/modules/both/object_utils";
 import {Authors} from "/imports/api/collections/authors.js";
 import {Publications} from "/imports/api/collections/publications.js";
 import * as formUtils from "/imports/modules/client/form_utils";
-import * as objectUtils from "/imports/modules/both/object_utils";
-import * as dateUtils from "/imports/modules/both/date_utils";
-import * as stringUtils from "/imports/modules/both/string_utils";
 
 
 export class SearchPublicationsSearchFilterSearchPage extends Component {
@@ -154,13 +149,14 @@ export class SearchPublicationsSearchFilterSearchPagePublicationFilter extends C
 				switch(searchPublicationsSearchFilterSearchPagePublicationFilterMode) {
 					case "insert": {
 						$form[0].reset();
-					}; break;
-
-					case "update": {
+                    }
+                        break;
+                    case "update": {
 						var message = msg || "Saved.";
 						self.setState({ searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage: message });
-					}; break;
-				}
+                    }
+                        break;
+                }
 			}
 
 			/*SUBMIT_REDIRECT*/

@@ -1,14 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withTracker, createContainer } from "meteor/react-meteor-data";
-import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
+import React, {Component} from "react";
+import {createContainer, withTracker} from "meteor/react-meteor-data";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
-import {mergeObjects} from "/imports/modules/both/object_utils";
+import * as objectUtils from "/imports/modules/both/object_utils";
 import {Users} from "meteor-user-roles";
 import * as formUtils from "/imports/modules/client/form_utils";
-import * as objectUtils from "/imports/modules/both/object_utils";
-import * as dateUtils from "/imports/modules/both/date_utils";
-import * as stringUtils from "/imports/modules/both/string_utils";
 
 
 export class AdminUsersDetailsPage extends Component {
@@ -151,13 +146,14 @@ export class AdminUsersDetailsPageDetailsForm extends Component {
 				switch(adminUsersDetailsPageDetailsFormMode) {
 					case "insert": {
 						$form[0].reset();
-					}; break;
-
-					case "update": {
+                    }
+                        break;
+                    case "update": {
 						var message = msg || "Saved.";
 						self.setState({ adminUsersDetailsPageDetailsFormInfoMessage: message });
-					}; break;
-				}
+                    }
+                        break;
+                }
 			}
 
 			/*SUBMIT_REDIRECT*/
