@@ -1,10 +1,10 @@
 import "/imports/modules/client/globals/init.js";
 
-import "/imports/api/collections/both/publications.js";
-import "/imports/api/collections/both/reports.js";
+import "/imports/api/collections/both/authors.js";
 import "/imports/api/collections/both/comments.js";
 import "/imports/api/collections/both/files.js";
-import "/imports/api/collections/both/authors.js";
+import "/imports/api/collections/both/publications.js";
+import "/imports/api/collections/both/reports.js";
 
 import "/imports/api/collections/both/joins/joins.js";
 
