@@ -30,6 +30,8 @@ export class ClaimPublicationPage extends Component {
 
 	
 
+	
+
 	render() {
 		if(this.props.data.dataLoading) {
 			return (

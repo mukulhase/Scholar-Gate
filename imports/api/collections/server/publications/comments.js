@@ -1,5 +1,5 @@
 import {Meteor} from "meteor/meteor";
-import {Comments} from "/imports/api/collections/comments.js";
+import {Comments} from "/imports/api/collections/both/comments.js";
 
 Meteor.publish("comment_list", function() {
 	return Comments.find({}, {});

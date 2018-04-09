@@ -30,6 +30,8 @@ export class HomePublicPage extends Component {
 
 	
 
+	
+
 	render() {
 		if(this.props.data.dataLoading) {
 			return (
@@ -97,6 +99,8 @@ export class HomePublicPageHomeJumbotron extends Component {
 	componentDidMount() {
 		
 	}
+
+	
 
 	
 

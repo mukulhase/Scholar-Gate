@@ -1,29 +1,29 @@
 import {Users} from "meteor-user-roles";
-import "/imports/api/collections/publications.js";
-import "/imports/api/collections/reports.js";
-import "/imports/api/collections/comments.js";
-import "/imports/api/collections/files.js";
-import "/imports/api/collections/authors.js";
+import "/imports/api/collections/both/publications.js";
+import "/imports/api/collections/both/reports.js";
+import "/imports/api/collections/both/comments.js";
+import "/imports/api/collections/both/files.js";
+import "/imports/api/collections/both/authors.js";
 
-import "/imports/api/collections/joins/joins.js";
+import "/imports/api/collections/both/joins/joins.js";
 
-import "/imports/api/collections/server/rules/publications.js";
-import "/imports/api/collections/server/rules/reports.js";
+import "/imports/api/collections/server/rules/authors.js";
 import "/imports/api/collections/server/rules/comments.js";
 import "/imports/api/collections/server/rules/files.js";
-import "/imports/api/collections/server/rules/authors.js";
+import "/imports/api/collections/server/rules/publications.js";
+import "/imports/api/collections/server/rules/reports.js";
 
-import "/imports/api/collections/server/publications/publications.js";
-import "/imports/api/collections/server/publications/reports.js";
+import "/imports/api/collections/server/publications/authors.js";
 import "/imports/api/collections/server/publications/comments.js";
 import "/imports/api/collections/server/publications/files.js";
-import "/imports/api/collections/server/publications/authors.js";
+import "/imports/api/collections/server/publications/publications.js";
+import "/imports/api/collections/server/publications/reports.js";
 
-import "/imports/api/methods/publications.js";
-import "/imports/api/methods/reports.js";
+import "/imports/api/methods/authors.js";
 import "/imports/api/methods/comments.js";
 import "/imports/api/methods/files.js";
-import "/imports/api/methods/authors.js";
+import "/imports/api/methods/publications.js";
+import "/imports/api/methods/reports.js";
 
 import "/imports/api/server_routes/router.js";
 
@@ -186,7 +186,23 @@ Accounts.urls.verifyEmail = function (token) {
 	return Meteor.absoluteUrl('verify_email/' + token);
 };
 
+Accounts.urls.enrollAccount = function (token) {
+	return Meteor.absoluteUrl('create_password/' + token);
+};
+
 Meteor.methods({
+	"createUserAccount": function(options) {
+		if(!Users.isAdmin(Meteor.userId())) {
+			throw new Meteor.Error(403, "Access denied.");
+		}
+
+		var userOptions = {};
+		if(options.username) userOptions.username = options.username;
+		if(options.email) userOptions.email = options.email;
+		if(options.password) userOptions.password = options.password;
+		if(options.profile) userOptions.profile = options.profile;
+		Accounts.createUser(userOptions);
+	},
 	"updateUserAccount": function(userId, data) {
 		if(!data || !Object.keys(data).length) {
 			return;

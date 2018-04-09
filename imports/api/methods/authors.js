@@ -1,4 +1,4 @@
-import {Authors} from "/imports/api/collections/authors.js";
+import {Authors} from "/imports/api/collections/both/authors.js";
 
 Meteor.methods({
 	"authorsInsert": function(data) {

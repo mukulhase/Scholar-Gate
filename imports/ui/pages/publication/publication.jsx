@@ -1,13 +1,19 @@
-import React, {Component} from "react";
-import {createContainer, withTracker} from "meteor/react-meteor-data";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withTracker, createContainer } from "meteor/react-meteor-data";
+import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
-import * as objectUtils from "/imports/modules/both/object_utils";
-import {Authors} from "/imports/api/collections/authors.js";
-import {Publications} from "/imports/api/collections/publications.js";
-import {Comments} from "/imports/api/collections/comments.js";
+import {mergeObjects} from "/imports/modules/both/object_utils";
+import {Authors} from "/imports/api/collections/both/authors.js";
+import {Publications} from "/imports/api/collections/both/publications.js";
+import {Comments} from "/imports/api/collections/both/comments.js";
 import * as formUtils from "/imports/modules/client/form_utils";
-import {Files} from "/imports/api/collections/files.js";
+import * as objectUtils from "/imports/modules/both/object_utils";
+import * as dateUtils from "/imports/modules/both/date_utils";
+import * as stringUtils from "/imports/modules/both/string_utils";
+import {Files} from "/imports/api/collections/both/files.js";
 import * as httpUtils from "/imports/modules/client/http_utils";
+import {Markdown} from "/imports/ui/components/markdown/markdown.jsx";
 import {ConfirmationDialog} from "/imports/ui/components/confirmation_dialog/confirmation_dialog.jsx";
 
 
@@ -32,6 +38,8 @@ export class PublicationPage extends Component {
 			globalOnRendered();
 		});
 	}
+
+	
 
 	
 
@@ -156,14 +164,13 @@ export class PublicationPagePublicationView extends Component {
 				switch(publicationPagePublicationViewMode) {
 					case "insert": {
 						$form[0].reset();
-                    }
-                        break;
-                    case "update": {
+					}; break;
+
+					case "update": {
 						var message = msg || "Saved.";
 						self.setState({ publicationPagePublicationViewInfoMessage: message });
-                    }
-                        break;
-                }
+					}; break;
+				}
 			}
 
 			/*SUBMIT_REDIRECT*/
@@ -232,6 +239,8 @@ export class PublicationPagePublicationView extends Component {
 	});
 }
 
+
+	
 
 	render() {
 		return (
@@ -476,6 +485,12 @@ export class PublicationPageView extends Component {
 		}
 	}
 
+	insertButtonClass() {
+		return Comments.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+	}
+
+	
+
 	
 
 	render() {
@@ -489,11 +504,11 @@ export class PublicationPageView extends Component {
 		<div className="row">
 			<div className="col-md-12">
 				<form id="dataview-controls" className="form-inline">
-					<div id="dataview-controls-insert" className="form-group {{insertButtonClass}}">
+					<div id="dataview-controls-insert" className={`form-group ${this.insertButtonClass()}`}>
 						<button type="button" id="dataview-insert-button" className="btn btn-success" onClick={this.onInsert}>
 							<span className="fa fa-plus">
 							</span>
-							Add new
+							&nbsp;Add new
 						</button>
 						&nbsp;
 					</div>
@@ -598,6 +613,8 @@ export class PublicationPageViewTableItems extends Component {
 	deleteButtonClass() {
 		return Comments.userCanRemove(Meteor.userId(), this.props.data) ? "" : "hidden";
 	}
+
+	
 
 	
 

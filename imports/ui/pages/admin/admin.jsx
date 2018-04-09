@@ -30,6 +30,8 @@ export class AdminPage extends Component {
 
 	
 
+	
+
 	render() {
 		if(this.props.data.dataLoading) {
 			return (
@@ -108,6 +110,8 @@ export class AdminPageSideMenu extends Component {
 	componentDidMount() {
 		
 	}
+
+	
 
 	
 

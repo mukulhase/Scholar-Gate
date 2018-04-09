@@ -30,6 +30,8 @@ export class SearchPage extends Component {
 
 	
 
+	
+
 	render() {
 		if(this.props.data.dataLoading) {
 			return (
@@ -114,13 +116,15 @@ export class SearchPageMenu extends Component {
 
 	
 
+	
+
 	render() {
 		return (
 	<ul id="menu-items" className="nav nav-stacked nav-pills">
-		<li id="menu-item-simple" className={menuItemClass('search.user_search')}>
-			<a href={pathFor('search.user_search', {})}>
+		<li id="menu-item-simple" className={menuItemClass('search.author_search')}>
+			<a href={pathFor('search.author_search', {})}>
 				<span className="item-title">
-					Users
+					Authors
 				</span>
 			</a>
 		</li>

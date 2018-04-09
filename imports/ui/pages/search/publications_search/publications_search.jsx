@@ -30,6 +30,8 @@ export class SearchPublicationsSearchPage extends Component {
 
 	
 
+	
+
 	render() {
 		if(this.props.data.dataLoading) {
 			return (
@@ -108,6 +110,8 @@ export class SearchPublicationsSearchPageMenu extends Component {
 	componentDidMount() {
 		
 	}
+
+	
 
 	
 

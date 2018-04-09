@@ -1,4 +1,4 @@
-import {Comments} from "/imports/api/collections/comments.js";
+import {Comments} from "/imports/api/collections/both/comments.js";
 
 Meteor.methods({
 	"commentsInsert": function(data) {

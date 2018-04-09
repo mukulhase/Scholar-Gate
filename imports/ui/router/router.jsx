@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import {mount, withOptions} from "react-mounter";
 import {LayoutContainer} from "/imports/ui/layouts/layout.jsx";
 import {NotFound} from "/imports/ui/pages/not_found/not_found.jsx";
+import {toKebabCase} from "/imports/modules/both/case_utils.js"
 import {HomePublicPageContainer} from "/imports/ui/pages/home_public/home_public.jsx";
 import {SearchPageContainer} from "/imports/ui/pages/search/search.jsx";
-import {SearchUserSearchPageContainer} from "/imports/ui/pages/search/user_search/user_search.jsx";
+import {SearchAuthorSearchPageContainer} from "/imports/ui/pages/search/author_search/author_search.jsx";
+import {SearchAuthorSearchDetailsPageContainer} from "/imports/ui/pages/search/author_search/details/details.jsx";
 import {SearchPublicationsSearchPageContainer} from "/imports/ui/pages/search/publications_search/publications_search.jsx";
 import {SearchPublicationsSearchFilterSearchPageContainer} from "/imports/ui/pages/search/publications_search/filter_search/filter_search.jsx";
 import {SearchPublicationsSearchSemanticSearchPageContainer} from "/imports/ui/pages/search/publications_search/semantic_search/semantic_search.jsx";
@@ -107,7 +109,8 @@ const privateRouteNames = [
 const freeRouteNames = [
 	"home_public",
 	"search",
-	"search.user_search",
+	"search.author_search",
+	"search.author_search.details",
 	"search.publications_search",
 	"search.publications_search.filter_search",
 	"search.publications_search.semantic_search",
@@ -208,6 +211,19 @@ export const routeGranted = function(routeName) {
 };
 
 
+FlowRouter.triggers.enter(function(context) {
+	if(context.route && context.route.name) {
+		$("body").addClass("page-" + toKebabCase(context.route.name));
+	}
+});
+
+FlowRouter.triggers.exit(function(context) {
+	if(context.route && context.route.name) {
+		$("body").removeClass("page-" + toKebabCase(context.route.name));
+	}
+});
+
+
 FlowRouter.subscriptions = function() {
 	this.register("current_user_data", Meteor.subscribe("current_user_data"));
 };
@@ -269,6 +285,8 @@ FlowRouter.notFound = {
 freeRoutes.route("/", {
     name: "home_public",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -292,10 +310,12 @@ freeRoutes.route("/", {
 freeRoutes.route("/search", {
     name: "search",
 
+    title: "Search",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			FlowRouter.withReplaceState(function() {
-				redirect("search.user_search", context.params, context.queryParams);
+				redirect("search.author_search", context.params, context.queryParams);
 			});
 
 		}
@@ -310,8 +330,10 @@ freeRoutes.route("/search", {
 	]
 });
 
-freeRoutes.route("/search/user_search", {
-    name: "search.user_search",
+freeRoutes.route("/search/author_search", {
+    name: "search.author_search",
+
+    title: "Search",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -322,7 +344,34 @@ freeRoutes.route("/search/user_search", {
     	reactMount(LayoutContainer, {
 			content: (
 				<SearchPageContainer routeParams={routeParams} subcontent={
-					<SearchUserSearchPageContainer routeParams={routeParams} />
+					<SearchAuthorSearchPageContainer routeParams={routeParams} />
+				} />
+			)
+		});
+
+    },
+	triggersExit: [
+		function(context, redirect) {
+			
+		}
+	]
+});
+
+freeRoutes.route("/search/author_search/details/:authorId", {
+    name: "search.author_search.details",
+
+    title: "Search",
+
+	triggersEnter: [
+		function(context, redirect, stop) {
+			
+		}
+	],
+    action: function(routeParams, routeQuery) {
+    	reactMount(LayoutContainer, {
+			content: (
+				<SearchPageContainer routeParams={routeParams} subcontent={
+					<SearchAuthorSearchDetailsPageContainer routeParams={routeParams} />
 				} />
 			)
 		});
@@ -337,6 +386,8 @@ freeRoutes.route("/search/user_search", {
 
 freeRoutes.route("/search/publications_search", {
     name: "search.publications_search",
+
+    title: "Search",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -358,6 +409,8 @@ freeRoutes.route("/search/publications_search", {
 
 freeRoutes.route("/search/publications_search/filter_search", {
     name: "search.publications_search.filter_search",
+
+    title: "Search",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -386,6 +439,8 @@ freeRoutes.route("/search/publications_search/filter_search", {
 freeRoutes.route("/search/publications_search/semantic_search", {
     name: "search.publications_search.semantic_search",
 
+    title: "Search",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -413,6 +468,8 @@ freeRoutes.route("/search/publications_search/semantic_search", {
 freeRoutes.route("/publication/:publicationId", {
     name: "publication",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -435,6 +492,8 @@ freeRoutes.route("/publication/:publicationId", {
 
 freeRoutes.route("/publication/:publicationId/details/:commentId", {
     name: "publication.details",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -459,6 +518,8 @@ freeRoutes.route("/publication/:publicationId/details/:commentId", {
 freeRoutes.route("/publication/:publicationId/insert", {
     name: "publication.insert",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -481,6 +542,8 @@ freeRoutes.route("/publication/:publicationId/insert", {
 
 freeRoutes.route("/publication/:publicationId/update/:commentId", {
     name: "publication.update",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -505,6 +568,8 @@ freeRoutes.route("/publication/:publicationId/update/:commentId", {
 freeRoutes.route("/author/:authorId", {
     name: "author",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -527,6 +592,8 @@ freeRoutes.route("/author/:authorId", {
 
 publicRoutes.route("/login", {
     name: "login",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -551,6 +618,8 @@ publicRoutes.route("/login", {
 publicRoutes.route("/register", {
     name: "register",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -573,6 +642,8 @@ publicRoutes.route("/register", {
 
 publicRoutes.route("/verify_email/:verifyEmailToken", {
     name: "verify_email",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -597,6 +668,8 @@ publicRoutes.route("/verify_email/:verifyEmailToken", {
 publicRoutes.route("/forgot_password", {
     name: "forgot_password",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -619,6 +692,8 @@ publicRoutes.route("/forgot_password", {
 
 publicRoutes.route("/reset_password/:resetPasswordToken", {
     name: "reset_password",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -643,6 +718,8 @@ publicRoutes.route("/reset_password/:resetPasswordToken", {
 privateRoutes.route("/home_private", {
     name: "home_private",
 
+    title: "Welcome {{userFullName}}!",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -666,6 +743,8 @@ privateRoutes.route("/home_private", {
 privateRoutes.route("/admin", {
     name: "admin",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			FlowRouter.withReplaceState(function() {
@@ -686,6 +765,8 @@ privateRoutes.route("/admin", {
 
 privateRoutes.route("/admin/users", {
     name: "admin.users",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -712,6 +793,8 @@ privateRoutes.route("/admin/users", {
 privateRoutes.route("/admin/users/details/:userId", {
     name: "admin.users.details",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -736,6 +819,8 @@ privateRoutes.route("/admin/users/details/:userId", {
 
 privateRoutes.route("/admin/users/insert", {
     name: "admin.users.insert",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -762,6 +847,8 @@ privateRoutes.route("/admin/users/insert", {
 privateRoutes.route("/admin/users/edit/:userId", {
     name: "admin.users.edit",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -787,6 +874,8 @@ privateRoutes.route("/admin/users/edit/:userId", {
 privateRoutes.route("/user_settings", {
     name: "user_settings",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			FlowRouter.withReplaceState(function() {
@@ -807,6 +896,8 @@ privateRoutes.route("/user_settings", {
 
 privateRoutes.route("/user_settings/profile", {
     name: "user_settings.profile",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -833,6 +924,8 @@ privateRoutes.route("/user_settings/profile", {
 privateRoutes.route("/user_settings/change_pass", {
     name: "user_settings.change_pass",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -858,6 +951,8 @@ privateRoutes.route("/user_settings/change_pass", {
 privateRoutes.route("/logout", {
     name: "logout",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -880,6 +975,8 @@ privateRoutes.route("/logout", {
 
 privateRoutes.route("/publications", {
     name: "publications",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -904,6 +1001,8 @@ privateRoutes.route("/publications", {
 privateRoutes.route("/publications/details/:publicationId", {
     name: "publications.details",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -926,6 +1025,8 @@ privateRoutes.route("/publications/details/:publicationId", {
 
 privateRoutes.route("/publications/insert", {
     name: "publications.insert",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {
@@ -950,6 +1051,8 @@ privateRoutes.route("/publications/insert", {
 privateRoutes.route("/publications/update/:publicationId", {
     name: "publications.update",
 
+    title: "",
+
 	triggersEnter: [
 		function(context, redirect, stop) {
 			
@@ -972,6 +1075,8 @@ privateRoutes.route("/publications/update/:publicationId", {
 
 privateRoutes.route("/claim_publication", {
     name: "claim_publication",
+
+    title: "",
 
 	triggersEnter: [
 		function(context, redirect, stop) {

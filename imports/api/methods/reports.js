@@ -1,4 +1,4 @@
-import {Reports} from "/imports/api/collections/reports.js";
+import {Reports} from "/imports/api/collections/both/reports.js";
 
 Meteor.methods({
 	"reportsInsert": function(data) {
