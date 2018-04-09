@@ -1,5 +1,5 @@
 import {Meteor} from "meteor/meteor";
-import {Publications} from "/imports/api/collections/publications.js";
+import {Publications} from "/imports/api/collections/both/publications.js";
 
 Meteor.publish("publication_list", function() {
 	return Publications.publishJoinedCursors(Publications.find({}, {}));

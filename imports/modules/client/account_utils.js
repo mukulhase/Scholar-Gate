@@ -10,10 +10,6 @@ export const userEmail = function() {
 		return user.emails[0].address || "";
 	}
 
-	if(user.profile && user.profile.email) {
-		return user.profile.email;
-	}
-
 	return "";
 };
 

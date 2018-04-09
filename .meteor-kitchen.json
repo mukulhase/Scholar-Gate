@@ -2,7 +2,7 @@
 	"output_files": [
 		{
 			"path": "imports/ui/router/router.jsx",
-			"checksum": "9ba138e907d26b21abe0b3c7a5e0234b7058a845"
+			"checksum": "b3d109a39ed153fff54c19d8a4a8917000b53434"
 		},
 		{
 			"path": "imports/api/server_routes/router.js",
@@ -10,15 +10,15 @@
 		},
 		{
 			"path": "imports/startup/client/client.js",
-			"checksum": "02bdd14211003279782c1439c66cdd305dff8118"
+			"checksum": "5acc14d41ac746c27a8b8615d235a5e44d33c76d"
 		},
 		{
 			"path": "client/index.html",
-			"checksum": "be490e68c2953955202b88391cc1c6ed9ee73c05"
+			"checksum": "a8971ffa45f9bda0aa011def2338d3520cc39523"
 		},
 		{
 			"path": "imports/startup/server/server.js",
-			"checksum": "56bd26c379b05f4e64a4fe1792a24bd836228ae9"
+			"checksum": "5838a8c22d2f71bb2c90f98b0346b43fc99ba3f6"
 		},
 		{
 			"path": "imports/ui/pages/not_found/not_found.jsx",
@@ -46,222 +46,226 @@
 		},
 		{
 			"path": "imports/ui/stylesheets/styles/styles.less",
-			"checksum": "fe67f96a746df52d4380fe5b3dedbcf8378fa8e2"
+			"checksum": "ae559df05b598466da7f14eaef01e7184cfed5e6"
 		},
 		{
 			"path": "imports/ui/layouts/layout.jsx",
-			"checksum": "7fa9867521073c9123580049a78b8572fbea6b6a"
+			"checksum": "e1a163dc5a128ce1d11b543ce8313c2179391cda"
 		},
 		{
 			"path": "imports/ui/pages/home_public/home_public.jsx",
-			"checksum": "5fe2d49be8e7ead8388e7f35e7c964dc2802a78c"
+			"checksum": "04328bf7c718fe3fee8fee7274eb45188a832c1e"
 		},
 		{
 			"path": "imports/ui/pages/search/search.jsx",
-			"checksum": "b58723486a37258c41d01b8711b8de0988ac3956"
+			"checksum": "5ecfb0e9aeb571e2c4faedd9859de02ce9c7f7b5"
 		},
 		{
-			"path": "imports/ui/pages/search/user_search/user_search.jsx",
-			"checksum": "a065d6189465e86fb9a9cbab307d1f74dd21ae1f"
+			"path": "imports/ui/pages/search/author_search/author_search.jsx",
+			"checksum": "223639775c1f8bd829b076ec4b7749feb39212c8"
+		},
+		{
+			"path": "imports/ui/pages/search/author_search/details/details.jsx",
+			"checksum": "f686c41a578f7eb3c73035ae8990f414f26f0d4b"
 		},
 		{
 			"path": "imports/ui/pages/search/publications_search/publications_search.jsx",
-			"checksum": "8a3286449cc32d25c10ff7cc68010e873139ac4b"
+			"checksum": "1805eb1f5814e391bb4c46651ecf17f81941ab37"
 		},
 		{
 			"path": "imports/ui/pages/search/publications_search/filter_search/filter_search.jsx",
-			"checksum": "f16643e49e14c543e770c8d741682323fc083481"
+			"checksum": "185a312f29529c0441ab98eb8457085849eba2c2"
 		},
 		{
 			"path": "imports/ui/pages/search/publications_search/semantic_search/semantic_search.jsx",
-			"checksum": "b8d927ba64369244fe891dd897a764696ed9dd06"
+			"checksum": "aa2e0751c71374a3da46886879eaea5004320932"
 		},
 		{
 			"path": "imports/ui/pages/publication/publication.jsx",
-			"checksum": "f56501b079bb336f319a67385a3f5f7a2138f48b"
+			"checksum": "04adcf56e896f22940e5b0d80625f1e3f6cfa39b"
 		},
 		{
 			"path": "imports/ui/pages/publication/details/details.jsx",
-			"checksum": "32a121bbdd80ee95fcc457956b2290e1a6713e11"
+			"checksum": "d8766cb6fb7c8e23b908f6b4fad0fec3675ff3a1"
 		},
 		{
 			"path": "imports/ui/pages/publication/insert/insert.jsx",
-			"checksum": "d5809c71d7a87b727c1b2138b6cac5ee9cc66d62"
+			"checksum": "25fb5755b892b5153f9f89204f311132118cabac"
 		},
 		{
 			"path": "imports/ui/pages/publication/update/update.jsx",
-			"checksum": "9a4128cd8aa95e5a39105103b7cd62b1f2a2ec85"
+			"checksum": "a724a990cb74f0e30ad4f0e52aea2c9f7737388e"
 		},
 		{
 			"path": "imports/ui/pages/author/author.jsx",
-			"checksum": "4b88860aece3f5bfa476fdc0792990b41bf6dba4"
+			"checksum": "bee417326be2086907f9b16237eeb4a8c4fff551"
 		},
 		{
 			"path": "imports/ui/pages/login/login.jsx",
-			"checksum": "f6adbadf82031c68806ddbd66fc2bab152db166a"
+			"checksum": "1b157ebf11a043d8c72e6e5f81323f67334d5b27"
 		},
 		{
 			"path": "imports/ui/pages/register/register.jsx",
-			"checksum": "386b3f6bff0e7f88ce562a3916a0b7f97cab78c2"
+			"checksum": "8791806cf2728f9a6599bd8b4df495416969d420"
 		},
 		{
 			"path": "imports/ui/pages/verify_email/verify_email.jsx",
-			"checksum": "c747e94daab6637d5eb313ac8c5a638e1e89b7e1"
+			"checksum": "edb98e6578cdb8ef2b931f017d6ea4fbde806550"
 		},
 		{
 			"path": "imports/ui/pages/forgot_password/forgot_password.jsx",
-			"checksum": "9b5702d7cf94f7e23070d8d617c1400b82940d7f"
+			"checksum": "f68ae36c6df8b179235893652a40d53cf6d73565"
 		},
 		{
 			"path": "imports/ui/pages/reset_password/reset_password.jsx",
-			"checksum": "249adfb7b06deace249295d8aa550bf404ba8ae4"
+			"checksum": "93b5d5381f2e3e7b8dd486408ae2389765f5eee7"
 		},
 		{
 			"path": "imports/ui/pages/home_private/home_private.jsx",
-			"checksum": "ca195cf0db9d8b3973c4f16e789bf4a973e313d6"
+			"checksum": "800fad6c3d7701927684e7c157a2c7b35b2872b9"
 		},
 		{
 			"path": "imports/ui/pages/admin/admin.jsx",
-			"checksum": "e7502302311ed7f7e20ca6f6c150ccc5f5da35b9"
+			"checksum": "289e7a2f999a1262822f7675d3ce817ee2c29515"
 		},
 		{
 			"path": "imports/ui/pages/admin/users/users.jsx",
-			"checksum": "9a5718d6f67369b03740484b2fb04ac1bbb90c6a"
+			"checksum": "2ded41f407eecde3f1cc7d91c655f7a69f1a474a"
 		},
 		{
 			"path": "imports/ui/pages/admin/users/details/details.jsx",
-			"checksum": "bf0bc0fa95477e89e27baaa562aff84905754ef0"
+			"checksum": "6137f3c7d310e91db284a72603f986a8e9595fd7"
 		},
 		{
 			"path": "imports/ui/pages/admin/users/insert/insert.jsx",
-			"checksum": "0257317ac140bdfe057a161ec4b0542cb341af23"
+			"checksum": "fd960059c72563b3564bc6ab48655ded84eaba5c"
 		},
 		{
 			"path": "imports/ui/pages/admin/users/edit/edit.jsx",
-			"checksum": "98bd8abc12e3f280c641ff9d2a26373836805d69"
+			"checksum": "3bf15a18f3bb618a463b66f560a712ef2905eaac"
 		},
 		{
 			"path": "imports/ui/pages/user_settings/user_settings.jsx",
-			"checksum": "363d6cf34f3044119cddab9e2d7a3fa05d9ebf11"
+			"checksum": "07de06d9938439b71fc66db5d74d7de9a36e3c91"
 		},
 		{
 			"path": "imports/ui/pages/user_settings/profile/profile.jsx",
-			"checksum": "558d385963857f532d8536645b909debbd5309d6"
+			"checksum": "a1fb833d0a80f14747825a9b9dd34024a2aae0e4"
 		},
 		{
 			"path": "imports/ui/pages/user_settings/change_pass/change_pass.jsx",
-			"checksum": "4e6a60c7a43af83787e54102df2db56da01dfbb3"
+			"checksum": "1e523a2acb923256bcafb54a1bf7525a20a498ff"
 		},
 		{
 			"path": "imports/ui/pages/logout/logout.jsx",
-			"checksum": "7c38efb104dfe4e401b74c4f36e25aaf4155fe91"
+			"checksum": "91cc5299aeacd3bbea9299f8c54f2c7495ce32ba"
 		},
 		{
 			"path": "imports/ui/pages/publications/publications.jsx",
-			"checksum": "7dc82f8f6896930ce6c04c1c7c42e37caa8fec0e"
+			"checksum": "5ea7d883f9ea14ee1b2d6ebbfede58e9d11351d7"
 		},
 		{
 			"path": "imports/ui/pages/publications/details/details.jsx",
-			"checksum": "34d2144dc50c3ba1da7742bd688405460bac171d"
+			"checksum": "e96afd1790360813387258d0941b70e657523fe2"
 		},
 		{
 			"path": "imports/ui/pages/publications/insert/insert.jsx",
-			"checksum": "2dc3baed1974514b2089c0bfe9d04c169aeda090"
+			"checksum": "12bdf2bd5000d54e104c6679625007c8d5a0a343"
 		},
 		{
 			"path": "imports/ui/pages/publications/update/update.jsx",
-			"checksum": "7568a199f521be25c7a49993ba9b5ce4dd0df104"
+			"checksum": "391bb0a902760b1cdfac4d713f35b3cbfac91eaf"
 		},
 		{
 			"path": "imports/ui/pages/claim_publication/claim_publication.jsx",
-			"checksum": "b9b6c866187a12c4423d6522c6d18cbbcc2eafe5"
+			"checksum": "f04b2f1f422a5e1a1a18570d619886b90a120987"
 		},
 		{
-			"path": "imports/api/collections/publications.js",
+			"path": "imports/api/collections/both/publications.js",
 			"checksum": "8551f05a45744e5817bd38a2aea25f5ccf26c593"
 		},
 		{
 			"path": "imports/api/methods/publications.js",
-			"checksum": "72398ab2ea4b71428d58f5bf44e0c443ded5e278"
+			"checksum": "3878b1aaf93ec07ed7c9477537b729d46face0b3"
 		},
 		{
 			"path": "imports/api/collections/server/rules/publications.js",
-			"checksum": "82dedd5a9a6f6fc924fec69770a94c716cfd9307"
+			"checksum": "79122d86625fa211207b16ca58eef6c76c9d5c1f"
 		},
 		{
 			"path": "imports/api/collections/server/publications/publications.js",
-			"checksum": "dabe0470cae92136caa3cf7878eb8230565c1597"
+			"checksum": "2dbfe50b3009a89ac7c326bc9c00819e939162f9"
 		},
 		{
-			"path": "imports/api/collections/reports.js",
+			"path": "imports/api/collections/both/reports.js",
 			"checksum": "99e4c3e4876594832fe4a0f991c33d52d08303d9"
 		},
 		{
 			"path": "imports/api/methods/reports.js",
-			"checksum": "dafa4593b3528820a8a59a7c5e30c09b5c2343f9"
+			"checksum": "d653be5a4a5b37a4d87d4452e6e0e87fd9263e61"
 		},
 		{
 			"path": "imports/api/collections/server/rules/reports.js",
-			"checksum": "8f8f5aaa4a60fa81f2d510987972acbadf471e4a"
+			"checksum": "16dd9c55a4729d8058a98dedc3ba1e35d2298e0b"
 		},
 		{
 			"path": "imports/api/collections/server/publications/reports.js",
-			"checksum": "4cfcd0c63a0e0f2e1510ed9d0c6e20bdd53ed50e"
+			"checksum": "2e0b0d5d5eeeb7af97497ea3e5659841ca449b35"
 		},
 		{
-			"path": "imports/api/collections/comments.js",
+			"path": "imports/api/collections/both/comments.js",
 			"checksum": "1a62847cc9299c7a35d206ee80bdfbaee9eff9c7"
 		},
 		{
 			"path": "imports/api/methods/comments.js",
-			"checksum": "2294f1c2a59ef36fee654b6e6df9acbfd75d40ba"
+			"checksum": "b791facf6c892d07f839ff6adc3a25803c3e936c"
 		},
 		{
 			"path": "imports/api/collections/server/rules/comments.js",
-			"checksum": "3eba8df7ba515968bd7e827f2200a9fc1403a1d1"
+			"checksum": "e9b5d5059308c29e8f2357bb9ee436fb626f378a"
 		},
 		{
 			"path": "imports/api/collections/server/publications/comments.js",
-			"checksum": "dd9b5d88c3eacc1b50082e4300d26ede52eed8f9"
+			"checksum": "e44f8c74113484057cf3f570ef0ac391c3e2f87f"
 		},
 		{
-			"path": "imports/api/collections/files.js",
+			"path": "imports/api/collections/both/files.js",
 			"checksum": "308b9b9dbe1c82cc7160de068945dfe87b63a542"
 		},
 		{
 			"path": "imports/api/methods/files.js",
-			"checksum": "2dca55812e86e95c3c22e38ae6a5f684064941bc"
+			"checksum": "5afc6ba4c2ff1c3295e296b332ab5aada09cfdec"
 		},
 		{
 			"path": "imports/api/collections/server/rules/files.js",
-			"checksum": "d4b8d1080b9a53ccb17915d1e95a626cace9710d"
+			"checksum": "80cde7f0d95d0ad8131bd85566fbac9bef6f0056"
 		},
 		{
 			"path": "imports/api/collections/server/publications/files.js",
-			"checksum": "2ac164ddf5f616c0605cab7851f071074b5f5312"
+			"checksum": "35489ebaa092bb9fdde922a92eb5b0fc588b2e32"
 		},
 		{
-			"path": "imports/api/collections/authors.js",
+			"path": "imports/api/collections/both/authors.js",
 			"checksum": "6b1bb6dc6d60a58149cad0f10f886548b13857b3"
 		},
 		{
 			"path": "imports/api/methods/authors.js",
-			"checksum": "44694e04151cf71ce55ed5b79971049bea95033f"
+			"checksum": "ae2bcf4954b0c7004bf43435f5f65502431f2fe1"
 		},
 		{
 			"path": "imports/api/collections/server/rules/authors.js",
-			"checksum": "f3369cf848e52f92f345d93debbe116609253fc5"
+			"checksum": "2d287a6bfe9c7aacbd51c75b69ed5b6fc4e970da"
 		},
 		{
 			"path": "imports/api/collections/server/publications/authors.js",
-			"checksum": "8f7126f18e9f5cab965094dff86f090813b4822b"
+			"checksum": "112305ce8a71cce1844396448080b149a8831a96"
 		},
 		{
-			"path": "imports/api/collections/joins/joins.js",
-			"checksum": "8be7aa543986b3534779b0ca9108e03f561ad848"
+			"path": "imports/api/collections/both/joins/joins.js",
+			"checksum": "90cb2e3180878b22edd3cd16bff3a451ef157b29"
 		},
 		{
-			"path": "imports/modules/client/animate_visible.js",
+			"path": "imports/ui/stylesheets/styles/animate_visible.js",
 			"checksum": "f2f5445a4f437805ef88b61169e3c5386ee67911"
 		},
 		{
@@ -302,7 +306,7 @@
 		},
 		{
 			"path": "imports/modules/client/account_utils.js",
-			"checksum": "4737eb262eb0e98f2b3d386a1299e307e1a63226"
+			"checksum": "b496d0dae452eee17f799e449dba7cccedcb5343"
 		},
 		{
 			"path": "imports/ui/components/confirmation_dialog/confirmation_dialog.jsx",
@@ -310,7 +314,11 @@
 		},
 		{
 			"path": "imports/ui/components/input_dialog/input_dialog.jsx",
-			"checksum": "2009fd49d13e5c2030c3f170c6febad93c03a30b"
+			"checksum": "caeb92e9ab73c311eea7afbf7bd31b77bd35882a"
+		},
+		{
+			"path": "imports/ui/components/choice_dialog/choice_dialog.jsx",
+			"checksum": "486c445b8df959549f604986b42250d09c21edb6"
 		},
 		{
 			"path": "imports/ui/stylesheets/framework/bootstrap3/custom.bootstrap.json",
@@ -327,6 +335,10 @@
 		{
 			"path": "imports/ui/stylesheets/framework/bootstrap3/custom.bootstrap.less",
 			"checksum": "a114a65d406f228e4137a3fb7b33047c40a5cd68"
+		},
+		{
+			"path": "imports/ui/stylesheets/framework/bootstrap3-plugins/plugins.js",
+			"checksum": "d2ec9b77d3b51c8be4511ea3ea76074bf10bb9e2"
 		},
 		{
 			"path": "imports/ui/stylesheets/framework/bootstrap3-plugins/bootstrap-tagsinput/bootstrap-tagsinput.js",
@@ -425,8 +437,8 @@
 			"checksum": "8caeab2c4b40a90eba4412eb5a31c76405e5a04a"
 		},
 		{
-			"path": "imports/ui/stylesheets/framework/bootstrap3-plugins/plugins.js",
-			"checksum": "d2ec9b77d3b51c8be4511ea3ea76074bf10bb9e2"
+			"path": "imports/ui/components/markdown/markdown.jsx",
+			"checksum": "2212b32f805f0b59c78642b02f66d3e16a7501af"
 		},
 		{
 			"path": "imports/modules/client/form_utils.js",
@@ -437,8 +449,9 @@
 		"client/",
 		"imports/",
 		"imports/api/",
-		"imports/api/collections/",
-		"imports/api/collections/joins/",
+		"imports/api/collections/both/",
+		"imports/api/collections/both/joins/",
+		"imports/api/collections/server/",
 		"imports/api/collections/server/publications/",
 		"imports/api/collections/server/rules/",
 		"imports/api/methods/",
@@ -453,8 +466,10 @@
 		"imports/startup/server/",
 		"imports/ui/",
 		"imports/ui/components/",
+		"imports/ui/components/choice_dialog/",
 		"imports/ui/components/confirmation_dialog/",
 		"imports/ui/components/input_dialog/",
+		"imports/ui/components/markdown/",
 		"imports/ui/layouts/",
 		"imports/ui/pages/",
 		"imports/ui/pages/admin/",
@@ -482,10 +497,11 @@
 		"imports/ui/pages/register/",
 		"imports/ui/pages/reset_password/",
 		"imports/ui/pages/search/",
+		"imports/ui/pages/search/author_search/",
+		"imports/ui/pages/search/author_search/details/",
 		"imports/ui/pages/search/publications_search/",
 		"imports/ui/pages/search/publications_search/filter_search/",
 		"imports/ui/pages/search/publications_search/semantic_search/",
-		"imports/ui/pages/search/user_search/",
 		"imports/ui/pages/user_settings/",
 		"imports/ui/pages/user_settings/change_pass/",
 		"imports/ui/pages/user_settings/profile/",
@@ -505,5 +521,51 @@
 		"public/fonts/",
 		"public/images/",
 		"server/"
-	]
+	],
+	"packages": {
+		"meteor": [
+			"natestrauser:animate-css",
+			"service-configuration",
+			"accounts-google",
+			"accounts-github",
+			"bruz:github-api",
+			"pauli:accounts-linkedin",
+			"accounts-facebook",
+			"accounts-twitter",
+			"accounts-password",
+			"perak:joins",
+			"cfs:standard-packages",
+			"cfs:filesystem",
+			"blaze-html-templates",
+			"kadira:flow-router",
+			"react-meteor-data",
+			"reactive-dict",
+			"meteorhacks:picker",
+			"check",
+			"random",
+			"accounts-base",
+			"http",
+			"email",
+			"spiderable",
+			"ejson",
+			"session",
+			"fortawesome:fontawesome",
+			"matb33:collection-hooks",
+			"less",
+			"twbs:bootstrap"
+		],
+		"npm": [
+			"react",
+			"react-dom",
+			"react-mounter",
+			"react-addons-pure-render-mixin",
+			"prop-types",
+			"bcrypt",
+			"meteor-user-roles",
+			"moment",
+			"marked"
+		],
+		"mrt": [
+		]
+	}
 }

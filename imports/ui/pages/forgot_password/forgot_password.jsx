@@ -118,6 +118,8 @@ export class ForgotPasswordPage extends Component {
 
 	
 
+	
+
 	render() {
 		if(this.props.data.dataLoading) {
 			return (

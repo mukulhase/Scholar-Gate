@@ -57,6 +57,9 @@ export class FreeLayout extends Component {
 		$("body").addClass("landing-layout");
 
 		$("#dismiss, .overlay, #sidebar ul li a").on("click", function () {
+			if($(this).hasClass("dropdown-toggle")) {
+				return;
+			}
 			$("#sidebar").removeClass("active");
 			$(".overlay").fadeOut();
 		});
@@ -80,10 +83,10 @@ export class FreeLayout extends Component {
 			<div className="overlay">
 			</div>
 			<header>
-				<nav id="navbar" className="navbar navbar-default navbar-fixed-top main-nav">
+				<nav id="navbar" className="navbar main-nav navbar-fixed-top navbar-default">
 					<div className="navbar-container container">
 						<div className="navbar-header">
-							<button type="button" className="navbar-btn navbar-toggle collapsed" id="sidebar-collapse" data-toggle="collapse" data-target=".navbar-collapse-1">
+							<button type="button" className="navbar-btn navbar-toggle collapsed" id="sidebar-collapse" data-toggle="collapse">
 								<span className="sr-only">
 									Toggle navigation
 								</span>
@@ -261,6 +264,8 @@ export class PublicLayoutLeftMenu extends Component {
 
 	
 
+	
+
 	render() {
 		return (
 	<ul id="menu-items" className="nav navbar-nav">
@@ -301,6 +306,8 @@ export class PublicLayoutRightMenu extends Component {
 	componentDidMount() {
 		/*TEMPLATE_RENDERED_CODE*/
 	}
+
+	
 
 	
 
@@ -428,6 +435,8 @@ export class PrivateLayoutLeftMenu extends Component {
 
 	
 
+	
+
 	render() {
 		return (
 	<ul id="menu-items" className="nav navbar-nav">
@@ -479,6 +488,8 @@ export class PrivateLayoutRightMenu extends Component {
 	componentDidMount() {
 		/*TEMPLATE_RENDERED_CODE*/
 	}
+
+	
 
 	
 

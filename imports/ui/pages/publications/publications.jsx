@@ -4,10 +4,11 @@ import { withTracker, createContainer } from "meteor/react-meteor-data";
 import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
 import {mergeObjects} from "/imports/modules/both/object_utils";
-import {Publications} from "/imports/api/collections/publications.js";
+import {Publications} from "/imports/api/collections/both/publications.js";
 import * as objectUtils from "/imports/modules/both/object_utils";
 import * as dateUtils from "/imports/modules/both/date_utils";
 import * as httpUtils from "/imports/modules/client/http_utils";
+import {Markdown} from "/imports/ui/components/markdown/markdown.jsx";
 import {ConfirmationDialog} from "/imports/ui/components/confirmation_dialog/confirmation_dialog.jsx";
 
 
@@ -32,6 +33,8 @@ export class PublicationsPage extends Component {
 			globalOnRendered();
 		});
 	}
+
+	
 
 	
 
@@ -196,12 +199,6 @@ export class PublicationsPageView extends Component {
 					<th className="th-sortable" data-sort="authorsids" onClick={this.onSort}>
 						Authors
 					</th>
-					<th>
-						Comments
-					</th>
-					<th className="th-sortable" data-sort="reportsids" onClick={this.onSort}>
-						Reports
-					</th>
 					<th className="th-sortable" data-sort="fileid" onClick={this.onSort}>
 						File
 					</th>
@@ -266,6 +263,12 @@ export class PublicationsPageView extends Component {
 		}
 	}
 
+	insertButtonClass() {
+		return Publications.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+	}
+
+	
+
 	
 
 	render() {
@@ -279,11 +282,11 @@ export class PublicationsPageView extends Component {
 		<div className="row">
 			<div className="col-md-12">
 				<form id="dataview-controls" className="form-inline">
-					<div id="dataview-controls-insert" className="form-group {{insertButtonClass}}">
+					<div id="dataview-controls-insert" className={`form-group ${this.insertButtonClass()}`}>
 						<button type="button" id="dataview-insert-button" className="btn btn-success" onClick={this.onInsert}>
 							<span className="fa fa-plus">
 							</span>
-							Add new
+							&nbsp;Add new
 						</button>
 						&nbsp;
 					</div>
@@ -395,6 +398,8 @@ export class PublicationsPageViewTableItems extends Component {
 
 	
 
+	
+
 	render() {
 		return(
 	<tr id="dataview-table-items-row">
@@ -403,12 +408,6 @@ export class PublicationsPageViewTableItems extends Component {
 		</td>
 		<td onClick={this.onSelect}>
 			{this.props.data.authorsids}
-		</td>
-		<td onClick={this.onSelect}>
-			{this.props.data.commentsids}
-		</td>
-		<td onClick={this.onSelect}>
-			{this.props.data.reportsids}
 		</td>
 		<td onClick={this.onSelect}>
 			{this.props.data.fileid}

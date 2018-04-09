@@ -30,6 +30,8 @@ export class LogoutPage extends Component {
 
 	
 
+	
+
 	render() {
 		Meteor.logout(() => {});
 

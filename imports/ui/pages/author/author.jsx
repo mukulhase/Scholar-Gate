@@ -4,7 +4,7 @@ import { withTracker, createContainer } from "meteor/react-meteor-data";
 import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
 import {mergeObjects} from "/imports/modules/both/object_utils";
-import {Authors} from "/imports/api/collections/authors.js";
+import {Authors} from "/imports/api/collections/both/authors.js";
 
 
 export class AuthorPage extends Component {
@@ -28,6 +28,8 @@ export class AuthorPage extends Component {
 			globalOnRendered();
 		});
 	}
+
+	
 
 	
 

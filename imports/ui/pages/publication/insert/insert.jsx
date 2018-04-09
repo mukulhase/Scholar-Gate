@@ -1,9 +1,14 @@
-import React, {Component} from "react";
-import {createContainer, withTracker} from "meteor/react-meteor-data";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withTracker, createContainer } from "meteor/react-meteor-data";
+import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
-import * as objectUtils from "/imports/modules/both/object_utils";
-import {Comments} from "/imports/api/collections/comments.js";
+import {mergeObjects} from "/imports/modules/both/object_utils";
+import {Comments} from "/imports/api/collections/both/comments.js";
 import * as formUtils from "/imports/modules/client/form_utils";
+import * as objectUtils from "/imports/modules/both/object_utils";
+import * as dateUtils from "/imports/modules/both/date_utils";
+import * as stringUtils from "/imports/modules/both/string_utils";
 
 
 export class PublicationInsertPage extends Component {
@@ -27,6 +32,8 @@ export class PublicationInsertPage extends Component {
 			globalOnRendered();
 		});
 	}
+
+	
 
 	
 
@@ -146,14 +153,13 @@ export class PublicationInsertPageForm extends Component {
 				switch(publicationInsertPageFormMode) {
 					case "insert": {
 						$form[0].reset();
-                    }
-                        break;
-                    case "update": {
+					}; break;
+
+					case "update": {
 						var message = msg || "Saved.";
 						self.setState({ publicationInsertPageFormInfoMessage: message });
-                    }
-                        break;
-                }
+					}; break;
+				}
 			}
 
 			FlowRouter.go("publication", objectUtils.mergeObjects(FlowRouter.current().params, {}));
@@ -207,6 +213,8 @@ export class PublicationInsertPageForm extends Component {
 
 	
 
+	
+
 	render() {
 		return (
 	<div id="publication-insert-page-form" className="">
@@ -234,7 +242,6 @@ export class PublicationInsertPageForm extends Component {
 						Cancel
 					</a>
 					<button id="form-submit-button" className="btn btn-success" type="submit">
-						<span className="fa fa-check" />
 						Save
 					</button>
 				</div>

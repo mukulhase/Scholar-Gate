@@ -1,11 +1,17 @@
-import React, {Component} from "react";
-import {createContainer, withTracker} from "meteor/react-meteor-data";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withTracker, createContainer } from "meteor/react-meteor-data";
+import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
-import * as objectUtils from "/imports/modules/both/object_utils";
-import {Authors} from "/imports/api/collections/authors.js";
-import {Publications} from "/imports/api/collections/publications.js";
+import {mergeObjects} from "/imports/modules/both/object_utils";
+import {Authors} from "/imports/api/collections/both/authors.js";
+import {Publications} from "/imports/api/collections/both/publications.js";
 import * as formUtils from "/imports/modules/client/form_utils";
-import {Files} from "/imports/api/collections/files.js";
+import * as objectUtils from "/imports/modules/both/object_utils";
+import * as dateUtils from "/imports/modules/both/date_utils";
+import * as stringUtils from "/imports/modules/both/string_utils";
+import {Files} from "/imports/api/collections/both/files.js";
+
 
 export class PublicationsInsertPage extends Component {
 	constructor () {
@@ -28,6 +34,8 @@ export class PublicationsInsertPage extends Component {
 			globalOnRendered();
 		});
 	}
+
+	
 
 	
 
@@ -149,14 +157,13 @@ export class PublicationsInsertPageForm extends Component {
 				switch(publicationsInsertPageFormMode) {
 					case "insert": {
 						$form[0].reset();
-                    }
-                        break;
-                    case "update": {
+					}; break;
+
+					case "update": {
 						var message = msg || "Saved.";
 						self.setState({ publicationsInsertPageFormInfoMessage: message });
-                    }
-                        break;
-                }
+					}; break;
+				}
 			}
 
 			FlowRouter.go("publications", objectUtils.mergeObjects(FlowRouter.current().params, {}));
@@ -225,6 +232,8 @@ export class PublicationsInsertPageForm extends Component {
 	});
 }
 
+
+	
 
 	render() {
 		return (
@@ -306,7 +315,6 @@ export class PublicationsInsertPageForm extends Component {
 						Cancel
 					</a>
 					<button id="form-submit-button" className="btn btn-success" type="submit">
-						<span className="fa fa-check" />
 						Save
 					</button>
 				</div>

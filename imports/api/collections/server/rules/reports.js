@@ -1,4 +1,4 @@
-import {Reports} from "/imports/api/collections/reports.js";
+import {Reports} from "/imports/api/collections/both/reports.js";
 
 Reports.allow({
 	insert: function (userId, doc) {

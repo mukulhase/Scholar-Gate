@@ -1,9 +1,14 @@
-import React, {Component} from "react";
-import {createContainer, withTracker} from "meteor/react-meteor-data";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withTracker, createContainer } from "meteor/react-meteor-data";
+import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
-import * as objectUtils from "/imports/modules/both/object_utils";
-import {Publications} from "/imports/api/collections/publications.js";
+import {mergeObjects} from "/imports/modules/both/object_utils";
+import {Publications} from "/imports/api/collections/both/publications.js";
 import * as formUtils from "/imports/modules/client/form_utils";
+import * as objectUtils from "/imports/modules/both/object_utils";
+import * as dateUtils from "/imports/modules/both/date_utils";
+import * as stringUtils from "/imports/modules/both/string_utils";
 
 
 export class PublicationsDetailsPage extends Component {
@@ -27,6 +32,8 @@ export class PublicationsDetailsPage extends Component {
 			globalOnRendered();
 		});
 	}
+
+	
 
 	
 
@@ -146,14 +153,13 @@ export class PublicationsDetailsPageForm extends Component {
 				switch(publicationsDetailsPageFormMode) {
 					case "insert": {
 						$form[0].reset();
-                    }
-                        break;
-                    case "update": {
+					}; break;
+
+					case "update": {
 						var message = msg || "Saved.";
 						self.setState({ publicationsDetailsPageFormInfoMessage: message });
-                    }
-                        break;
-                }
+					}; break;
+				}
 			}
 
 			/*SUBMIT_REDIRECT*/
@@ -207,14 +213,19 @@ export class PublicationsDetailsPageForm extends Component {
 
 	
 
+	
+
 	render() {
 		return (
 	<div id="publications-details-page-form" className="">
 		<h2 id="component-title">
-			<a href="#" id="form-back-button" className="btn btn-default" title="back" onClick={this.onBack}>
-				<span className="fa fa-chevron-left">
-				</span>
-			</a>
+			<span id="form-back-button">
+				<a href="#" className="btn btn-default" title="back" onClick={this.onBack}>
+					<span className="fa fa-chevron-left">
+					</span>
+				</a>
+				&nbsp;
+			</span>
 			<span id="component-title-icon" className="">
 			</span>
 			Publication Details

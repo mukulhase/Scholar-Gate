@@ -1,4 +1,4 @@
-import {Files} from "/imports/api/collections/files.js";
+import {Files} from "/imports/api/collections/both/files.js";
 
 Files.allow({
 	insert: function (userId, doc) {

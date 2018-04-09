@@ -4,14 +4,14 @@ import { withTracker, createContainer } from "meteor/react-meteor-data";
 import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
 import {mergeObjects} from "/imports/modules/both/object_utils";
-import {Users} from "meteor-user-roles";
+import {Authors} from "/imports/api/collections/both/authors.js";
 import * as formUtils from "/imports/modules/client/form_utils";
 import * as objectUtils from "/imports/modules/both/object_utils";
 import * as dateUtils from "/imports/modules/both/date_utils";
 import * as stringUtils from "/imports/modules/both/string_utils";
 
 
-export class UserSettingsProfilePage extends Component {
+export class SearchAuthorSearchDetailsPage extends Component {
 	constructor () {
 		super();
 		
@@ -50,7 +50,7 @@ export class UserSettingsProfilePage extends Component {
 				<div className="col-md-12">
 				</div>
 			</div>
-			<UserSettingsProfilePageEditForm data={this.props.data} routeParams={this.props.routeParams} />
+			<SearchAuthorSearchDetailsPageForm data={this.props.data} routeParams={this.props.routeParams} />
 		</div>
 	</div>
 );
@@ -58,12 +58,12 @@ export class UserSettingsProfilePage extends Component {
 	}
 }
 
-export const UserSettingsProfilePageContainer = withTracker(function(props) {
+export const SearchAuthorSearchDetailsPageContainer = withTracker(function(props) {
 		var isReady = function() {
 		
 
 		var subs = [
-			Meteor.subscribe("current_user_data")
+			Meteor.subscribe("author1", props.routeParams.authorId)
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -80,7 +80,7 @@ export const UserSettingsProfilePageContainer = withTracker(function(props) {
 
 		data = {
 
-				current_user_data: Users.findOne({_id:Meteor.userId()}, {})
+				author1: Authors.findOne({_id:props.routeParams.authorId}, {})
 			};
 		
 
@@ -88,14 +88,14 @@ export const UserSettingsProfilePageContainer = withTracker(function(props) {
 	}
 	return { data: data };
 
-})(UserSettingsProfilePage);
-export class UserSettingsProfilePageEditForm extends Component {
+})(SearchAuthorSearchDetailsPage);
+export class SearchAuthorSearchDetailsPageForm extends Component {
 	constructor () {
 		super();
 
 		this.state = {
-			userSettingsProfilePageEditFormErrorMessage: "",
-			userSettingsProfilePageEditFormInfoMessage: ""
+			searchAuthorSearchDetailsPageFormErrorMessage: "",
+			searchAuthorSearchDetailsPageFormInfoMessage: ""
 		};
 
 		this.renderErrorMessage = this.renderErrorMessage.bind(this);
@@ -126,7 +126,7 @@ export class UserSettingsProfilePageEditForm extends Component {
 	renderErrorMessage() {
 		return(
 	<div className="alert alert-warning">
-		{this.state.userSettingsProfilePageEditFormErrorMessage}
+		{this.state.searchAuthorSearchDetailsPageFormErrorMessage}
 	</div>
 );
 	}
@@ -134,41 +134,41 @@ export class UserSettingsProfilePageEditForm extends Component {
 	renderInfoMessage() {
 		return(
 	<div className="alert alert-success">
-		{this.state.userSettingsProfilePageEditFormInfoMessage}
+		{this.state.searchAuthorSearchDetailsPageFormInfoMessage}
 	</div>
 );
 	}
 
 	onSubmit(e) {
 		e.preventDefault();
-		this.setState({ userSettingsProfilePageEditFormInfoMessage: "" });
-		this.setState({ userSettingsProfilePageEditFormErrorMessage: "" });
+		this.setState({ searchAuthorSearchDetailsPageFormInfoMessage: "" });
+		this.setState({ searchAuthorSearchDetailsPageFormErrorMessage: "" });
 
 		var self = this;
 		var $form = $(e.target);
 
 		function submitAction(result, msg) {
-			var userSettingsProfilePageEditFormMode = "update";
-			if(!$("#user-settings-profile-page-edit-form").find("#form-cancel-button").length) {
-				switch(userSettingsProfilePageEditFormMode) {
+			var searchAuthorSearchDetailsPageFormMode = "read_only";
+			if(!$("#search-author-search-details-page-form").find("#form-cancel-button").length) {
+				switch(searchAuthorSearchDetailsPageFormMode) {
 					case "insert": {
 						$form[0].reset();
 					}; break;
 
 					case "update": {
 						var message = msg || "Saved.";
-						self.setState({ userSettingsProfilePageEditFormInfoMessage: message });
+						self.setState({ searchAuthorSearchDetailsPageFormInfoMessage: message });
 					}; break;
 				}
 			}
 
-			FlowRouter.go("user_settings.profile", objectUtils.mergeObjects(FlowRouter.current().params, {}));
+			/*SUBMIT_REDIRECT*/
 		}
 
 		function errorAction(msg) {
 			msg = msg || "";
 			var message = msg.message || msg || "Error.";
-			self.setState({ userSettingsProfilePageEditFormErrorMessage: message });
+			self.setState({ searchAuthorSearchDetailsPageFormErrorMessage: message });
 		}
 
 		formUtils.validateForm(
@@ -182,7 +182,7 @@ export class UserSettingsProfilePageEditForm extends Component {
 			function(values) {
 				
 
-				Meteor.call("updateUserAccount", self.props.data.current_user_data._id, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });
+				
 			}
 		);
 
@@ -201,14 +201,14 @@ export class UserSettingsProfilePageEditForm extends Component {
 		e.preventDefault();
 		self = this;
 
-		/*CLOSE_REDIRECT*/
+		FlowRouter.go("search.author_search", objectUtils.mergeObjects(FlowRouter.current().params, {}));
 	}
 
 	onBack(e) {
 		e.preventDefault();
 		self = this;
 
-		/*BACK_REDIRECT*/
+		FlowRouter.go("search.author_search", objectUtils.mergeObjects(FlowRouter.current().params, {}));
 	}
 
 	
@@ -217,30 +217,47 @@ export class UserSettingsProfilePageEditForm extends Component {
 
 	render() {
 		return (
-	<div id="user-settings-profile-page-edit-form" className="">
+	<div id="search-author-search-details-page-form" className="">
 		<h2 id="component-title">
+			<span id="form-back-button">
+				<a href="#" className="btn btn-default" title="back" onClick={this.onBack}>
+					<span className="fa fa-chevron-left">
+					</span>
+				</a>
+				&nbsp;
+			</span>
 			<span id="component-title-icon" className="">
 			</span>
-			Edit your profile
+			Author Details
 		</h2>
 		<form role="form" onSubmit={this.onSubmit}>
-			{this.state.userSettingsProfilePageEditFormErrorMessage ? this.renderErrorMessage() : null}
-					{this.state.userSettingsProfilePageEditFormInfoMessage ? this.renderInfoMessage() : null}
-			<div className="form-group  field-profile-name">
-				<label htmlFor="profile.name">
+			{this.state.searchAuthorSearchDetailsPageFormErrorMessage ? this.renderErrorMessage() : null}
+					{this.state.searchAuthorSearchDetailsPageFormInfoMessage ? this.renderInfoMessage() : null}
+			<div className="form-group  field-name">
+				<label htmlFor="name">
 					Name
 				</label>
 				<div className="input-div">
-					<input type="text" name="profile.name" defaultValue={this.props.data.current_user_data.profile.name} className="form-control " autoFocus="autoFocus" required="required" data-type="string" />
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
+					<p className="form-control-static  control-field-name">
+						{this.props.data.author1.name}
+					</p>
+				</div>
+			</div>
+			<div className="form-group  field-email">
+				<label htmlFor="email">
+					Email
+				</label>
+				<div className="input-div">
+					<p className="form-control-static  control-field-email">
+						{this.props.data.author1.email}
+					</p>
 				</div>
 			</div>
 			<div className="form-group">
 				<div className="submit-div btn-toolbar">
-					<button id="form-submit-button" className="btn btn-success" type="submit">
-						Save
-					</button>
+					<a href="#" id="form-close-button" className="btn btn-primary" onClick={this.onClose}>
+						OK
+					</a>
 				</div>
 			</div>
 		</form>

@@ -1,4 +1,4 @@
-import {Publications} from "/imports/api/collections/publications.js";
+import {Publications} from "/imports/api/collections/both/publications.js";
 
 Publications.allow({
 	insert: function (userId, doc) {

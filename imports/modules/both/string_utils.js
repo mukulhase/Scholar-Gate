@@ -1,6 +1,6 @@
 export const escapeRegEx = function (string) {
 	return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-};
+}
 
 export const replaceSubstrings = function(string, find, replace) {
 	return string.replace(new RegExp(escapeRegEx(find), 'g'), replace);

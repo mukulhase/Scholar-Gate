@@ -1,6 +1,6 @@
-var hasSpace = /\s/;
-var hasSeparator = /[\W_]/;
-var hasCamel = /([a-z][A-Z]|[A-Z][a-z])/;
+var hasSpace = /\s/
+var hasSeparator = /[\W_]/
+var hasCamel = /([a-z][A-Z]|[A-Z][a-z])/
 
 /**
  * Remove any starting case from a `string`, like camel or snake, but keep
@@ -21,7 +21,7 @@ export const toNoCase = function(string) {
  * Separator splitter.
  */
 
-var separatorSplitter = /[\W_]+(.|$)/g;
+var separatorSplitter = /[\W_]+(.|$)/g
 
 /**
  * Un-separate a `string`.
@@ -40,7 +40,7 @@ function unseparate(string) {
  * Camelcase splitter.
  */
 
-var camelSplitter = /(.)([A-Z]+)/g;
+var camelSplitter = /(.)([A-Z]+)/g
 
 /**
  * Un-camelcase a `string`.

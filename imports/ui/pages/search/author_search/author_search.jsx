@@ -4,7 +4,7 @@ import { withTracker, createContainer } from "meteor/react-meteor-data";
 import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
 import {mergeObjects} from "/imports/modules/both/object_utils";
-import {Users} from "meteor-user-roles";
+import {Authors} from "/imports/api/collections/both/authors.js";
 import * as objectUtils from "/imports/modules/both/object_utils";
 import * as dateUtils from "/imports/modules/both/date_utils";
 import * as httpUtils from "/imports/modules/client/http_utils";
@@ -12,7 +12,7 @@ import {Markdown} from "/imports/ui/components/markdown/markdown.jsx";
 import {ConfirmationDialog} from "/imports/ui/components/confirmation_dialog/confirmation_dialog.jsx";
 
 
-export class AdminUsersPage extends Component {
+export class SearchAuthorSearchPage extends Component {
 	constructor () {
 		super();
 		
@@ -51,7 +51,7 @@ export class AdminUsersPage extends Component {
 				<div className="col-md-12">
 				</div>
 			</div>
-			<AdminUsersPageView data={this.props.data} routeParams={this.props.routeParams} />
+			<SearchAuthorSearchPageView data={this.props.data} routeParams={this.props.routeParams} />
 		</div>
 	</div>
 );
@@ -59,12 +59,12 @@ export class AdminUsersPage extends Component {
 	}
 }
 
-export const AdminUsersPageContainer = withTracker(function(props) {
+export const SearchAuthorSearchPageContainer = withTracker(function(props) {
 		var isReady = function() {
 		
 
 		var subs = [
-			Meteor.subscribe("admin_users")
+			Meteor.subscribe("author_list")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -81,7 +81,7 @@ export const AdminUsersPageContainer = withTracker(function(props) {
 
 		data = {
 
-				admin_users: Users.find({}, {}).fetch()
+				author_list: Authors.find({}, {}).fetch()
 			};
 		
 
@@ -89,15 +89,15 @@ export const AdminUsersPageContainer = withTracker(function(props) {
 	}
 	return { data: data };
 
-})(AdminUsersPage);
-export class AdminUsersPageView extends Component {
+})(SearchAuthorSearchPage);
+export class SearchAuthorSearchPageView extends Component {
 	constructor () {
 		super();
 
 		this.state = {
-			AdminUsersPageViewSearchString: "",
-			AdminUsersPageViewSortBy: "",
-			AdminUsersPageViewStyle: "table"
+			SearchAuthorSearchPageViewSearchString: "",
+			SearchAuthorSearchPageViewSortBy: "",
+			SearchAuthorSearchPageViewStyle: "table"
 		};
 
 		this.isNotEmpty = this.isNotEmpty.bind(this);
@@ -132,19 +132,19 @@ export class AdminUsersPageView extends Component {
 	}
 
 	isNotEmpty() {
-		return this.props.data.admin_users && this.props.data.admin_users.length > 0;
+		return this.props.data.author_list && this.props.data.author_list.length > 0;
 	}
 
 	isNotFound() {
-		return this.props.data.admin_users && this.props.data.admin_users.length == 0 && this.state.AdminUsersPageViewSearchString;
+		return this.props.data.author_list && this.props.data.author_list.length == 0 && this.state.SearchAuthorSearchPageViewSearchString;
 	}
 
 	onInsert(e) {
-		FlowRouter.go("admin.users.insert", objectUtils.mergeObjects(FlowRouter.current().params, {}));
+		/**/
 	}
 
 	onSearchInputChange(e) {
-		this.setState({AdminUsersPageViewSearchString: e.target.value});
+		this.setState({SearchAuthorSearchPageViewSearchString: e.target.value});
 	}
 
 	onSearch(e) {
@@ -153,13 +153,13 @@ export class AdminUsersPageView extends Component {
 		let searchInput = form.find("#dataview-search-input");
 		searchInput.focus();
 		let searchString = searchInput.val();
-		this.setState({ AdminUsersPageViewSearchString: searchString });
+		this.setState({ SearchAuthorSearchPageViewSearchString: searchString });
 	}
 
 	onSort(e) {
 		e.preventDefault();
 		let sortBy = $(e.currentTarget).attr("data-sort");
-		this.setState({ AdminUsersPageViewSortBy: sortBy });
+		this.setState({ SearchAuthorSearchPageViewSortBy: sortBy });
 	}
 
 	exportData(data, fileType) {
@@ -173,15 +173,15 @@ export class AdminUsersPageView extends Component {
 	}
 
 	onExportCSV(e) {
-		this.exportData(this.props.data.admin_users, "csv");
+		this.exportData(this.props.data.author_list, "csv");
 	}
 
 	onExportTSV(e) {
-		this.exportData(this.props.data.admin_users, "tsv");
+		this.exportData(this.props.data.author_list, "tsv");
 	}
 
 	onExportJSON(e) {
-		this.exportData(this.props.data.admin_users, "json");
+		this.exportData(this.props.data.author_list, "json");
 	}
 
 	renderTable() {
@@ -193,21 +193,18 @@ export class AdminUsersPageView extends Component {
 		<table id="dataview-table" className="table table-striped table-hover">
 			<thead id="dataview-table-header">
 				<tr id="dataview-table-header-row">
-					<th className="th-sortable" data-sort="profile.name" onClick={this.onSort}>
+					<th className="th-sortable" data-sort="name" onClick={this.onSort}>
 						Name
 					</th>
-					<th className="th-sortable" data-sort="roles" onClick={this.onSort}>
-						Role
-					</th>
-					<th>
-						&nbsp;
+					<th className="th-sortable" data-sort="email" onClick={this.onSort}>
+						Email
 					</th>
 				</tr>
 			</thead>
 			<tbody id="dataview-table-items">
-				{this.props.data.admin_users.map(function(item) {
+				{this.props.data.author_list.map(function(item) {
 			return(
-				<AdminUsersPageViewTableItems key={item._id} data={item} routeParams={self.props.routeParams} onDelete={self.onDelete} parentData={parentData} />
+				<SearchAuthorSearchPageViewTableItems key={item._id} data={item} routeParams={self.props.routeParams} onDelete={self.onDelete} parentData={parentData} />
 				);
 		})}
 			</tbody>
@@ -241,7 +238,7 @@ export class AdminUsersPageView extends Component {
 	}
 
 	renderData() {
-		let viewStyle = this.state.AdminUsersPageViewStyle || "table";
+		let viewStyle = this.state.SearchAuthorSearchPageViewStyle || "table";
 		switch(viewStyle) {
 			case "table": return this.renderTable(); break;
 			case "blog": return this.renderBlog(); break;
@@ -251,7 +248,9 @@ export class AdminUsersPageView extends Component {
 		}
 	}
 
-	
+	insertButtonClass() {
+		return Authors.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+	}
 
 	
 
@@ -259,26 +258,18 @@ export class AdminUsersPageView extends Component {
 
 	render() {
 		return (
-	<div id="admin-users-page-view" className="">
+	<div id="search-author-search-page-view" className="">
 		<h2 id="component-title">
 			<span id="component-title-icon" className="">
 			</span>
-			Users
+			Authors
 		</h2>
 		<div className="row">
 			<div className="col-md-12">
 				<form id="dataview-controls" className="form-inline">
-					<div id="dataview-controls-insert" className={`form-group `}>
-						<button type="button" id="dataview-insert-button" className="btn btn-success" onClick={this.onInsert}>
-							<span className="fa fa-plus">
-							</span>
-							&nbsp;Add new
-						</button>
-						&nbsp;
-					</div>
 					<div id="dataview-controls-search" className="form-group">
 						<div id="dataview-controls-search-group" className="input-group">
-							<input type="text" className="form-control" id="dataview-search-input" placeholder="Search" name="search" defaultValue={this.state.AdminUsersPageViewSearchString} onChange={this.onSearchInputChange} autoFocus={true} />
+							<input type="text" className="form-control" id="dataview-search-input" placeholder="Search" name="search" defaultValue={this.state.SearchAuthorSearchPageViewSearchString} onChange={this.onSearchInputChange} autoFocus={true} />
 							<span className="input-group-btn">
 								<button type="submit" id="dataview-search-button" className="btn btn-primary" onClick={this.onSearch}>
 									<span className="fa fa-search">
@@ -293,18 +284,18 @@ export class AdminUsersPageView extends Component {
 		</div>
 		{this.isNotEmpty() ? this.renderData() : (this.isNotFound() ?
 		<div className="alert alert-warning">
-			{"\"" + this.state.AdminUsersPageViewSearchString + "\" not found."}
+			{"\"" + this.state.SearchAuthorSearchPageViewSearchString + "\" not found."}
 		</div>
 		:
 		<div className="alert alert-info">
-			No users yet
+			Empty.
 		</div>
 		)}
 	</div>
 );
 	}
 }
-export class AdminUsersPageViewTableItems extends Component {
+export class SearchAuthorSearchPageViewTableItems extends Component {
 	constructor() {
 		super();
 		this.onToggle = this.onToggle.bind(this);
@@ -323,7 +314,7 @@ export class AdminUsersPageViewTableItems extends Component {
 		let data = {};
 		data[toggleField] = !this.props.data[toggleField];
 
-		Meteor.call("", itemId, data, function(err, res) {
+		Meteor.call("authorsUpdate", itemId, data, function(err, res) {
 			if(err) {
 				alert(err);
 			}
@@ -334,7 +325,7 @@ export class AdminUsersPageViewTableItems extends Component {
 		e.stopPropagation();
 		let self = this;
 		let itemId = this.props.data._id;
-		FlowRouter.go("admin.users.edit", objectUtils.mergeObjects(FlowRouter.current().params, {userId: this.props.data._id}));
+		/**/
 	}
 
 	onDelete(e) {
@@ -345,7 +336,7 @@ export class AdminUsersPageViewTableItems extends Component {
 			message: "Delete? Are you sure?",
 			title: "Delete",
 			onYes: function(id) {
-				Meteor.call("", id, function(err, res) {
+				Meteor.call("authorsRemove", id, function(err, res) {
 					if(err) {
 						alert(err);
 					}
@@ -367,15 +358,15 @@ export class AdminUsersPageViewTableItems extends Component {
 		let itemId = this.props.data._id;
 
 		
-		FlowRouter.go("admin.users.details", objectUtils.mergeObjects(FlowRouter.current().params, {userId: this.props.data._id}));
+		FlowRouter.go("search.author_search.details", objectUtils.mergeObjects(FlowRouter.current().params, {authorId: this.props.data._id}));
 	}
 
 	editButtonClass() {
-		return Users.isAdmin(Meteor.userId()) ? "" : "hidden";
+		return Authors.userCanUpdate(Meteor.userId(), this.props.data) ? "" : "hidden";
 	}
 
 	deleteButtonClass() {
-		return Users.isAdmin(Meteor.userId()) ? "" : "hidden";
+		return Authors.userCanRemove(Meteor.userId(), this.props.data) ? "" : "hidden";
 	}
 
 	
@@ -390,14 +381,10 @@ export class AdminUsersPageViewTableItems extends Component {
 		return(
 	<tr id="dataview-table-items-row">
 		<td onClick={this.onSelect}>
-			{this.props.data.profile.name}
+			{this.props.data.name}
 		</td>
 		<td onClick={this.onSelect}>
-			{this.props.data.roles}
-		</td>
-		<td className="td-icon">
-			<span id="edit-button" className={`fa fa-pencil ${this.editButtonClass()}`} title="Edit" onClick={this.onEdit}>
-			</span>
+			{this.props.data.email}
 		</td>
 	</tr>
 );
