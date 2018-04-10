@@ -1,4 +1,5 @@
 import {Publications} from "/imports/api/collections/both/publications.js";
+import {Authors} from "../../both/authors";
 
 Publications.allow({
 	insert: function (userId, doc) {
@@ -19,8 +20,12 @@ Publications.before.insert(function(userId, doc) {
 	doc.createdBy = userId;
 	doc.modifiedAt = doc.createdAt;
 	doc.modifiedBy = doc.createdBy;
+	_.forEach(doc.untaggedauthors,(obj)=>{
+        Authors.insert({
+            name: obj
+        });
+	});
 
-	
 	if(!doc.user) doc.user = userId;
 });
 

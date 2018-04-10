@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {Typeahead} from 'react-bootstrap-typeahead'; // ES2015
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 import PropTypes from "prop-types";
 import { withTracker, createContainer } from "meteor/react-meteor-data";
 import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
@@ -83,7 +85,17 @@ export const PublicationsInsertPageContainer = withTracker(function(props) {
 
 		data = {
 
-				authors_list: Authors.find({}, {}).fetch(),
+				authors_list: Authors.find({
+                    userid: {
+                        $exists: true
+                    }
+				}, {}).fetch(),
+				unregistered_list: Authors.find({
+                    userid: {
+                    	$exists: false
+                    }
+				}, {}).fetch(),
+				me: Authors.findOne({userid: Meteor.user()._id}, {}),
 				publications_null: Publications.findOne({_id:null}, {})
 			};
 		
@@ -120,11 +132,8 @@ export class PublicationsInsertPageForm extends Component {
 	}
 
 	componentDidMount() {
-		
-
-		$("select[data-role='tagsinput']").tagsinput();
-		$(".bootstrap-tagsinput").addClass("form-control");
-		$("input[type='file']").fileinput();
+        $("input[name='authorsids']").val(this.props.data.me._id);
+        $("input[type='file']").fileinput();
 	}
 
 	renderErrorMessage() {
@@ -178,14 +187,14 @@ export class PublicationsInsertPageForm extends Component {
 		formUtils.validateForm(
 			$form,
 			function(fieldName, fieldValue) {
-
 			},
 			function(msg) {
 
 			},
 			function(values) {
-				
-
+                console.log(values);
+                values["untaggedauthors"] = values["untaggedauthors"].split(",");
+                values["authorsids"] = values["authorsids"].split(",");
 				Meteor.call("publicationsInsert", values, function(e, r) { if(e) errorAction(e); else submitAction(r); });
 			}
 		);
@@ -261,11 +270,18 @@ export class PublicationsInsertPageForm extends Component {
 					Authors
 				</label>
 				<div className="input-div col-sm-9">
-					<select multiple="multiple" className="form-control " name="authorsids" data-type="array">
-						{this.props.data.authors_list.map(function(item, index) { return(
-						<option key={"dynamic-" + index} value={item._id}>							{item.name}</option>
-						); }) }
-					</select>
+                    <Typeahead
+                        labelKey="name"
+						name= "authorsidsnew"
+                        defaultSelected={[this.props.data.me]}
+                        multiple={true}
+                        options={this.props.data.authors_list}
+                        placeholder="Choose a state..."
+						onChange={(e)=>{
+							$("input[name='authorsids']").val(_.map(e, (obj)=>obj._id));
+						}}
+                    />
+					<input type="hidden" className="form-control " name="authorsids"/>
 					<span id="help-text" className="help-block" />
 					<span id="error-text" className="help-block" />
 				</div>
@@ -301,13 +317,23 @@ export class PublicationsInsertPageForm extends Component {
 					Unregistered Authors
 				</label>
 				<div className="input-div col-sm-9">
-					<select multiple="multiple" data-role="tagsinput" className="form-control " name="untaggedauthors" data-type="array">
-						{objectUtils.getArray("").map(function(tag, ndx) {
-					return(
-						<option key={ndx} value={tag} id="form-input-tags-item">							{tag}</option>
-						);
-				})}
-					</select>
+                    <Typeahead
+                        labelKey="name"
+                        onload={()=>{
+                            $("input[name='authorsids']").val(_.map(e, (obj)=>obj._id));
+                        }}
+                        allowNew
+                        newSelectionPrefix="New Author: "
+                        defaultSelected={[]}
+                        multiple={true}
+                        options={this.props.data.unregistered_list}
+                        placeholder="Authors which aren't registered on the website"
+                        onChange={(e)=>{
+                            $("input[name='untaggedauthors']").val(_.map(e, e=>e.name));
+                        }}
+
+                    />
+                    <input type="hidden" className="form-control " name="untaggedauthors" />
 					<span id="help-text" className="help-block" />
 					<span id="error-text" className="help-block" />
 				</div>

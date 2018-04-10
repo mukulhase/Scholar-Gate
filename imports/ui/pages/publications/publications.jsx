@@ -5,6 +5,7 @@ import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
 import {mergeObjects} from "/imports/modules/both/object_utils";
 import {Publications} from "/imports/api/collections/both/publications.js";
+import {Authors} from "/imports/api/collections/both/authors.js";
 import * as objectUtils from "/imports/modules/both/object_utils";
 import * as dateUtils from "/imports/modules/both/date_utils";
 import * as httpUtils from "/imports/modules/client/http_utils";
@@ -64,8 +65,9 @@ export const PublicationsPageContainer = withTracker(function(props) {
 		
 
 		var subs = [
-			Meteor.subscribe("publication_list")
-		];
+			Meteor.subscribe("publication_list"),
+            Meteor.subscribe("authors_list"),
+        ];
 		var ready = true;
 		_.each(subs, function(sub) {
 			if(!sub.ready())
@@ -80,13 +82,12 @@ export const PublicationsPageContainer = withTracker(function(props) {
 		
 
 		data = {
-
-				publication_list: Publications.find({}, {}).fetch()
+				publication_list: Publications.find({}, {}).fetch(),
+				authors_list: Authors.find({}, {}).fetch()
 			};
 		
-
-		
 	}
+	console.log(data);
 	return { data: data };
 
 })(PublicationsPage);
@@ -187,8 +188,8 @@ export class PublicationsPageView extends Component {
 	renderTable() {
 		var self = this;
 		var parentData = {};
-
-		return (
+        authors_list = this.props.data.authors_list;
+        return (
 	<div id="dataview-data-table">
 		<table id="dataview-table" className="table table-striped table-hover">
 			<thead id="dataview-table-header">
@@ -219,7 +220,7 @@ export class PublicationsPageView extends Component {
 			<tbody id="dataview-table-items">
 				{this.props.data.publication_list.map(function(item) {
 			return(
-				<PublicationsPageViewTableItems key={item._id} data={item} routeParams={self.props.routeParams} onDelete={self.onDelete} parentData={parentData} />
+				<PublicationsPageViewTableItems key={item._id} data={item} authors={authors_list} routeParams={self.props.routeParams} onDelete={self.onDelete} parentData={parentData} />
 				);
 		})}
 			</tbody>
@@ -407,7 +408,14 @@ export class PublicationsPageViewTableItems extends Component {
 			{this.props.data.title}
 		</td>
 		<td onClick={this.onSelect}>
-			{this.props.data.authorsids}
+			{
+				_.map(
+					_.filter(
+						this.props.authors,
+						(obj => this.props.data.authorsids.indexOf(obj._id)!=-1)
+					), obj=>obj.name
+				)
+			}
 		</td>
 		<td onClick={this.onSelect}>
 			{this.props.data.fileid}
