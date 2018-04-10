@@ -26,7 +26,6 @@ accounts-twitter
 accounts-password
 perak:joins
 cfs:standard-packages
-cfs:filesystem
 blaze-html-templates
 kadira:flow-router
 react-meteor-data
@@ -44,3 +43,4 @@ fortawesome:fontawesome
 matb33:collection-hooks
 less
 twbs:bootstrap
+cfs:s3

@@ -10,14 +10,14 @@ import "/imports/api/collections/both/joins/joins.js";
 import "/imports/api/collections/server/rules/authors.js";
 import "/imports/api/collections/server/rules/comments.js";
 import "/imports/api/collections/server/rules/files.js";
-import "/imports/api/collections/server/rules/publications.js";
 import "/imports/api/collections/server/rules/reports.js";
+import "/imports/api/collections/server/rules/publications.js";
 
 import "/imports/api/collections/server/publications/authors.js";
 import "/imports/api/collections/server/publications/comments.js";
-import "/imports/api/collections/server/publications/files.js";
 import "/imports/api/collections/server/publications/publications.js";
 import "/imports/api/collections/server/publications/reports.js";
+import "/imports/api/collections/server/publications/files.js";
 
 import "/imports/api/methods/authors.js";
 import "/imports/api/methods/comments.js";
