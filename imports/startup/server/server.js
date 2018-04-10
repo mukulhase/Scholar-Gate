@@ -1,4 +1,5 @@
 import {Users} from "meteor-user-roles";
+import {Authors} from "/imports/api/collections/both/authors"
 import "/imports/api/collections/both/authors.js";
 import "/imports/api/collections/both/comments.js";
 import "/imports/api/collections/both/files.js";
@@ -156,7 +157,11 @@ Accounts.onCreateUser(function (options, user) {
 	if(!Users.findOne({ roles: "admin" }) && user.roles.indexOf("admin") < 0) {
 		user.roles = ["admin"];
 	 }
-
+    Authors.insert({
+        name: user.profile.name,
+		email: user.profile.email,
+		userid: user._id
+    });
 	return user;
 });
 
