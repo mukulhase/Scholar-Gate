@@ -18,7 +18,7 @@
 		},
 		{
 			"path": "imports/startup/server/server.js",
-			"checksum": "98cfb43f14f62e6d8e0a74359d0b3eaf27dcfd90"
+			"checksum": "39a595c9904899feb61b9b48806d9d9d4b8ef872"
 		},
 		{
 			"path": "imports/ui/pages/not_found/not_found.jsx",
@@ -230,7 +230,7 @@
 		},
 		{
 			"path": "imports/api/collections/both/files.js",
-			"checksum": "308b9b9dbe1c82cc7160de068945dfe87b63a542"
+			"checksum": "7e7f979c5daf43275830b6c951e72c40ca78d6ca"
 		},
 		{
 			"path": "imports/api/methods/files.js",
@@ -535,7 +535,7 @@
 			"accounts-password",
 			"perak:joins",
 			"cfs:standard-packages",
-			"cfs:filesystem",
+			"cfs:s3",
 			"blaze-html-templates",
 			"kadira:flow-router",
 			"react-meteor-data",

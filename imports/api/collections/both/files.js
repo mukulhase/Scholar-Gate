@@ -2,7 +2,7 @@ import {Mongo} from "meteor/mongo";
 import {Users} from "meteor-user-roles";
 
 export const Files = new FS.Collection("files", {
-	stores: [new FS.Store.FileSystem("files", {})]
+	stores: [new FS.Store.S3("files", {})]
 });
 
 Files.userCanInsert = function(userId, doc) {
