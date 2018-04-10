@@ -243,24 +243,24 @@ export class PublicationsInsertPageForm extends Component {
 			</span>
 			New Publication
 		</h2>
-		<form role="form" onSubmit={this.onSubmit}>
+		<form role="form" onSubmit={this.onSubmit} className="form-horizontal">
 			{this.state.publicationsInsertPageFormErrorMessage ? this.renderErrorMessage() : null}
 					{this.state.publicationsInsertPageFormInfoMessage ? this.renderInfoMessage() : null}
 			<div className="form-group  field-title">
-				<label htmlFor="title">
+				<label htmlFor="title" className="col-sm-3 control-label">
 					Title
 				</label>
-				<div className="input-div">
+				<div className="input-div col-sm-9">
 					<input type="text" name="title" defaultValue="" className="form-control " autoFocus="autoFocus" data-type="string" />
 					<span id="help-text" className="help-block" />
 					<span id="error-text" className="help-block" />
 				</div>
 			</div>
 			<div className="form-group  field-authorsids">
-				<label htmlFor="authorsids">
+				<label htmlFor="authorsids" className="col-sm-3 control-label">
 					Authors
 				</label>
-				<div className="input-div">
+				<div className="input-div col-sm-9">
 					<select multiple="multiple" className="form-control " name="authorsids" data-type="array">
 						{this.props.data.authors_list.map(function(item, index) { return(
 						<option key={"dynamic-" + index} value={item._id}>							{item.name}</option>
@@ -271,10 +271,10 @@ export class PublicationsInsertPageForm extends Component {
 				</div>
 			</div>
 			<div className="form-group  field-fileid">
-				<label htmlFor="fileid">
+				<label htmlFor="fileid" className="col-sm-3 control-label">
 					File
 				</label>
-				<div className="input-div">
+				<div className="input-div col-sm-9">
 					<input type="file" id="field-fileid" className="file " multiple="false" data-show-upload="false" data-show-caption="true" data-field="fileid" onChange={this.onFileUpload} />
 					<input type="hidden" name="fileid" defaultValue="" />
 					<span id="help-text" className="help-block" />
@@ -282,7 +282,10 @@ export class PublicationsInsertPageForm extends Component {
 				</div>
 			</div>
 			<div className="form-group  field-public">
-				<div className="input-div" data-required="true">
+				<label htmlFor="public" className="col-sm-3 control-label">
+					&nbsp;
+				</label>
+				<div className="input-div col-sm-9" data-required="true">
 					<div className="checkbox">
 						<label>
 							<input type="checkbox" defaultChecked="" name="public" data-type="bool" />
@@ -294,10 +297,10 @@ export class PublicationsInsertPageForm extends Component {
 				</div>
 			</div>
 			<div className="form-group  field-untaggedauthors">
-				<label htmlFor="untaggedauthors">
+				<label htmlFor="untaggedauthors" className="col-sm-3 control-label">
 					Unregistered Authors
 				</label>
-				<div className="input-div">
+				<div className="input-div col-sm-9">
 					<select multiple="multiple" data-role="tagsinput" className="form-control " name="untaggedauthors" data-type="array">
 						{objectUtils.getArray("").map(function(tag, ndx) {
 					return(
@@ -310,7 +313,7 @@ export class PublicationsInsertPageForm extends Component {
 				</div>
 			</div>
 			<div className="form-group">
-				<div className="submit-div btn-toolbar">
+				<div className="submit-div btn-toolbar col-sm-9 col-sm-offset-3">
 					<a href="#" id="form-cancel-button" className="btn btn-default" onClick={this.onCancel}>
 						Cancel
 					</a>
