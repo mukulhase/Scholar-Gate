@@ -418,7 +418,9 @@ export class PublicationsPageViewTableItems extends Component {
 			}
 		</td>
 		<td onClick={this.onSelect}>
-			{this.props.data.fileid}
+			{
+                this.props.data.file.original?"https://s3-ap-southeast-1.amazonaws.com/scholargate/uploads/files/"+this.props.data.fileid+"-"+this.props.data.file.original.name: "Not uploaded"
+			}
 		</td>
 		<td>
 			<input type="checkbox" className={`inline-checkbox ${this.editButtonClass()}`} data-field="public" checked={!!this.props.data.public} onChange={this.onToggle} />

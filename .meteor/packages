@@ -44,3 +44,4 @@ matb33:collection-hooks
 less
 twbs:bootstrap
 cfs:s3
+cfs:filesystem
