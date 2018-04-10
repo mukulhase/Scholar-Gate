@@ -199,7 +199,7 @@ export class PublicationsPageView extends Component {
 					<th className="th-sortable" data-sort="authorsids" onClick={this.onSort}>
 						Authors
 					</th>
-					<th className="th-sortable" data-sort="fileid" onClick={this.onSort}>
+					<th>
 						File
 					</th>
 					<th className="th-sortable" data-sort="public" onClick={this.onSort}>

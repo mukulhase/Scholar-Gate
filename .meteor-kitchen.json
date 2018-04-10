@@ -162,7 +162,7 @@
 		},
 		{
 			"path": "imports/ui/pages/publications/publications.jsx",
-			"checksum": "5ea7d883f9ea14ee1b2d6ebbfede58e9d11351d7"
+			"checksum": "f1de05dc7db10215a4012ecc3092c972148043e3"
 		},
 		{
 			"path": "imports/ui/pages/publications/details/details.jsx",
@@ -170,7 +170,7 @@
 		},
 		{
 			"path": "imports/ui/pages/publications/insert/insert.jsx",
-			"checksum": "12bdf2bd5000d54e104c6679625007c8d5a0a343"
+			"checksum": "b54fd212cc816394b4e5d9730670af87e86e4b38"
 		},
 		{
 			"path": "imports/ui/pages/publications/update/update.jsx",
