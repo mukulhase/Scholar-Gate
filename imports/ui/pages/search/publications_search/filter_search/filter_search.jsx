@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { withTracker, createContainer } from "meteor/react-meteor-data";
+import {withTracker, createContainer} from "meteor/react-meteor-data";
 import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
 import {mergeObjects} from "/imports/modules/both/object_utils";
@@ -10,270 +10,285 @@ import * as formUtils from "/imports/modules/client/form_utils";
 import * as objectUtils from "/imports/modules/both/object_utils";
 import * as dateUtils from "/imports/modules/both/date_utils";
 import * as stringUtils from "/imports/modules/both/string_utils";
+import {AuthorPicker} from "../../../../components/author_picker/author_picker";
+import {PublicationList} from "../../../../components/publication_list/publication_list";
 
 
 export class SearchPublicationsSearchFilterSearchPage extends Component {
-	constructor () {
-		super();
-		
-	}
+    constructor() {
+        super();
 
-	componentWillMount() {
-		
-	}
+    }
 
-	componentWillUnmount() {
-		
-	}
+    componentWillMount() {
 
-	componentDidMount() {
-		
+    }
 
-		Meteor.defer(function() {
-			globalOnRendered();
-		});
-	}
+    componentWillUnmount() {
 
-	
+    }
 
-	
+    componentDidMount() {
 
-	render() {
-		if(this.props.data.dataLoading) {
-			return (
-	<Loading />
-);
-		} else {
-			return (
-	<div>
-		<div className="page-container container" id="content">
-			<div className="row" id="title_row">
-				<div className="col-md-12">
-				</div>
-			</div>
-			<SearchPublicationsSearchFilterSearchPagePublicationFilter data={this.props.data} routeParams={this.props.routeParams} />
-		</div>
-	</div>
-);
-		}
-	}
+
+        Meteor.defer(function () {
+            globalOnRendered();
+        });
+    }
+
+
+    render() {
+        if (this.props.data.dataLoading) {
+            return (
+                <Loading/>
+            );
+        } else {
+            return (
+                <div>
+                    <div className="page-container container" id="content">
+                        <div className="row" id="title_row">
+                            <div className="col-md-12">
+                            </div>
+                        </div>
+                        <SearchPublicationsSearchFilterSearchPagePublicationFilter data={this.props.data}
+                                                                                   routeParams={this.props.routeParams}/>
+                    </div>
+                </div>
+            );
+        }
+    }
 }
 
-export const SearchPublicationsSearchFilterSearchPageContainer = withTracker(function(props) {
-		var isReady = function() {
-		
+export const SearchPublicationsSearchFilterSearchPageContainer = withTracker(function (props) {
+    var isReady = function () {
 
-		var subs = [
-			Meteor.subscribe("authors_list"),
-			Meteor.subscribe("publications_null")
-		];
-		var ready = true;
-		_.each(subs, function(sub) {
-			if(!sub.ready())
-				ready = false;
-		});
-		return ready;
-	};
 
-	var data = { dataLoading: true };
+        var subs = [
+            Meteor.subscribe("authors_list"),
+        ];
+        var ready = true;
+        _.each(subs, function (sub) {
+            if (!sub.ready())
+                ready = false;
+        });
+        return ready;
+    };
 
-	if(isReady()) {
-		
+    var data = {dataLoading: true};
 
-		data = {
+    if (isReady()) {
 
-				authors_list: Authors.find({}, {}).fetch(),
-				publications_null: Publications.findOne({_id:null}, {})
-			};
-		
 
-		
-	}
-	return { data: data };
+        data = {
+            authors_list: Authors.find({}, {}).fetch()
+        };
+
+
+    }
+    return {data: data};
 
 })(SearchPublicationsSearchFilterSearchPage);
+
+
+export const QueryPublicationList = withTracker(function(props){
+    let results = [];
+    let values = props.query;
+    if (!values){
+        return {publications: []}
+    }
+    console.log(values);
+    var isReady = function () {
+        var subs = [
+            Meteor.subscribe("publication_search", values.title),
+        ];
+        var ready = true;
+        _.each(subs, function (sub) {
+            if (!sub.ready())
+                ready = false;
+        });
+        return ready;
+    };
+    if (isReady()) {
+        if (values.authorsids.length > 0) {
+            results = Publications.find({
+                authorsids: {
+                    $elemMatch: {
+                        $in: values.authorsids
+                    }
+                }
+            }, {
+                // sort: [["score", "desc"]]
+            }).fetch();
+        } else {
+            results = Publications.find({
+            }, {
+            }).fetch();
+        }
+    }
+    // Meteor.subscribe("publication_list", values.title);
+    return {publications: results}
+})(PublicationList);
+
 export class SearchPublicationsSearchFilterSearchPagePublicationFilter extends Component {
-	constructor () {
-		super();
+    constructor() {
+        super();
 
-		this.state = {
-			searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage: "",
-			searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage: ""
-		};
+        this.state = {
+            searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage: "",
+            searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage: "",
+            results:[]
+        };
 
-		this.renderErrorMessage = this.renderErrorMessage.bind(this);
-		this.renderInfoMessage = this.renderInfoMessage.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel = this.onCancel.bind(this);
-		this.onClose = this.onClose.bind(this);
-		this.onBack = this.onBack.bind(this);
-		
-	}
+        this.renderErrorMessage = this.renderErrorMessage.bind(this);
+        this.renderInfoMessage = this.renderInfoMessage.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onCancel = this.onCancel.bind(this);
+        this.onClose = this.onClose.bind(this);
+        this.onBack = this.onBack.bind(this);
 
-	componentWillMount() {
-		
-	}
+    }
 
-	componentWillUnmount() {
-		
-	}
+    componentWillMount() {
 
-	componentDidMount() {
-		
+    }
 
-		$("select[data-role='tagsinput']").tagsinput();
-		$(".bootstrap-tagsinput").addClass("form-control");
-		$("input[type='file']").fileinput();
-	}
+    componentWillUnmount() {
 
-	renderErrorMessage() {
-		return(
-	<div className="alert alert-warning">
-		{this.state.searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage}
-	</div>
-);
-	}
+    }
 
-	renderInfoMessage() {
-		return(
-	<div className="alert alert-success">
-		{this.state.searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage}
-	</div>
-);
-	}
+    componentDidMount() {
 
-	onSubmit(e) {
-		e.preventDefault();
-		this.setState({ searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage: "" });
-		this.setState({ searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage: "" });
+    }
 
-		var self = this;
-		var $form = $(e.target);
+    renderErrorMessage() {
+        return (
+            <div className="alert alert-warning">
+                {this.state.searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage}
+            </div>
+        );
+    }
 
-		function submitAction(result, msg) {
-			var searchPublicationsSearchFilterSearchPagePublicationFilterMode = "insert";
-			if(!$("#search-publications-search-filter-search-page-publication-filter").find("#form-cancel-button").length) {
-				switch(searchPublicationsSearchFilterSearchPagePublicationFilterMode) {
-					case "insert": {
-						$form[0].reset();
-					}; break;
+    renderInfoMessage() {
+        return (
+            <div className="alert alert-success">
+                {this.state.searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage}
+            </div>
+        );
+    }
 
-					case "update": {
-						var message = msg || "Saved.";
-						self.setState({ searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage: message });
-					}; break;
-				}
-			}
+    onSubmit(e) {
+        e.preventDefault();
+        this.setState({searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage: ""});
+        this.setState({searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage: ""});
 
-			/*SUBMIT_REDIRECT*/
-		}
+        var self = this;
+        var $form = $(e.target);
 
-		function errorAction(msg) {
-			msg = msg || "";
-			var message = msg.message || msg || "Error.";
-			self.setState({ searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage: message });
-		}
+        function submitAction(result, msg) {
+            var searchPublicationsSearchFilterSearchPagePublicationFilterMode = "insert";
+            if (!$("#search-publications-search-filter-search-page-publication-filter").find("#form-cancel-button").length) {
+                switch (searchPublicationsSearchFilterSearchPagePublicationFilterMode) {
+                    case "insert": {
+                        $form[0].reset();
+                    }
+                        ;
+                        break;
 
-		formUtils.validateForm(
-			$form,
-			function(fieldName, fieldValue) {
+                    case "update": {
+                        var message = msg || "Saved.";
+                        self.setState({searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage: message});
+                    }
+                        ;
+                        break;
+                }
+            }
 
-			},
-			function(msg) {
+            /*SUBMIT_REDIRECT*/
+        }
 
-			},
-			function(values) {
-				
+        function errorAction(msg) {
+            msg = msg || "";
+            var message = msg.message || msg || "Error.";
+            self.setState({searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage: message});
+        }
 
-				Meteor.call("publicationsInsert", values, function(e, r) { if(e) errorAction(e); else submitAction(r); });
-			}
-		);
+        formUtils.validateForm(
+            $form,
+            function (fieldName, fieldValue) {
 
-		return false;
-	}
+            },
+            function (msg) {
 
-	onCancel(e) {
-		e.preventDefault();
-		self = this;
-		
+            },
+            function (values) {
+                if (values.authorsids == ""){
+                    values.authorsids = []
+                }else{
+                    values.authorsids = values.authorsids.split(',');
+                }
+                self.setState({query: values})
+            }
+        );
 
-		/*CANCEL_REDIRECT*/
-	}
+        return false;
+    }
 
-	onClose(e) {
-		e.preventDefault();
-		self = this;
+    onCancel(e) {
+        e.preventDefault();
+        self = this;
 
-		/*CLOSE_REDIRECT*/
-	}
 
-	onBack(e) {
-		e.preventDefault();
-		self = this;
+        /*CANCEL_REDIRECT*/
+    }
 
-		/*BACK_REDIRECT*/
-	}
+    onClose(e) {
+        e.preventDefault();
+        self = this;
 
-	
+        /*CLOSE_REDIRECT*/
+    }
 
-	
+    onBack(e) {
+        e.preventDefault();
+        self = this;
 
-	render() {
-		return (
-	<div id="search-publications-search-filter-search-page-publication-filter" className="">
-		<h2 id="component-title">
+        /*BACK_REDIRECT*/
+    }
+
+
+    render() {
+        return (
+            <div id="search-publications-search-filter-search-page-publication-filter" className="">
+                <h2 id="component-title">
 			<span id="component-title-icon" className="">
 			</span>
-		</h2>
-		<form role="form" onSubmit={this.onSubmit} className="form-inline">
-			{this.state.searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage ? this.renderErrorMessage() : null}
-					{this.state.searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage ? this.renderInfoMessage() : null}
-			<div className="form-group  field-title">
-				<label htmlFor="title">
-					Title
-				</label>
-				<div className="input-div">
-					<input type="text" name="title" defaultValue="" className="form-control " autoFocus="autoFocus" data-type="string" />
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
-				</div>
-			</div>
-			<div className="form-group  field-authorsids">
-				<label htmlFor="authorsids">
-					Authors
-				</label>
-				<div className="input-div">
-					<select multiple="multiple" className="form-control " name="authorsids" data-type="array">
-						{this.props.data.authors_list.map(function(item, index) { return(
-						<option key={"dynamic-" + index} value={item._id}>							{item.name}</option>
-						); }) }
-					</select>
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
-				</div>
-			</div>
-			<div className="form-group  field-untaggedauthors">
-				<label htmlFor="untaggedauthors">
-					Unregistered Authors
-				</label>
-				<div className="input-div">
-					<select multiple="multiple" data-role="tagsinput" className="form-control " name="untaggedauthors" data-type="array">
-						{objectUtils.getArray("").map(function(tag, ndx) {
-					return(
-						<option key={ndx} value={tag} id="form-input-tags-item">							{tag}</option>
-						);
-				})}
-					</select>
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
-				</div>
-			</div>
-			<div className="form-group">
-				<div className="submit-div btn-toolbar">
-				</div>
-			</div>
-		</form>
-	</div>
-);
-	}
+                </h2>
+                <form role="form" onSubmit={this.onSubmit} className="form-inline">
+                    {this.state.searchPublicationsSearchFilterSearchPagePublicationFilterErrorMessage ? this.renderErrorMessage() : null}
+                    {this.state.searchPublicationsSearchFilterSearchPagePublicationFilterInfoMessage ? this.renderInfoMessage() : null}
+                    <div className="form-group  field-title">
+                        <label htmlFor="title">
+                            Title
+                        </label>
+                        <div className="input-div">
+                            <input type="text" name="title" defaultValue="" className="form-control "
+                                   autoFocus="autoFocus" data-type="string"/>
+                            <span id="help-text" className="help-block"/>
+                            <span id="error-text" className="help-block"/>
+                        </div>
+                    </div>
+                    <div className="form-group  field-authorsids">
+                        <label htmlFor="authorsids">
+                            Authors
+                        </label>
+                        <AuthorPicker name="authorsids" selected={[]} options={this.props.data.authors_list} placeholder="List of authors"/>
+                    </div>
+                    <div className="form-group">
+                        <input type={"submit"} className="submit-div btn-toolbar" />
+                    </div>
+                </form>
+                <QueryPublicationList query={this.state.query} />
+            </div>
+        );
+    }
 }

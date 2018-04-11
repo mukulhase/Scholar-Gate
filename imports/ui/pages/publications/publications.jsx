@@ -65,7 +65,7 @@ export const PublicationsPageContainer = withTracker(function(props) {
 		
 
 		var subs = [
-			Meteor.subscribe("publication_list"),
+			Meteor.subscribe("my_publication_list"),
             Meteor.subscribe("authors_list"),
         ];
 		var ready = true;
@@ -82,12 +82,17 @@ export const PublicationsPageContainer = withTracker(function(props) {
 		
 
 		data = {
-				publication_list: Publications.find({}, {}).fetch(),
+				publication_list: Publications.find({
+                    authorsids:{
+                        $elemMatch:{
+                            $eq: Authors.findOne({userid: Meteor.user()._id}, {})._id
+                        }
+                    }
+                }, {}).fetch(),
 				authors_list: Authors.find({}, {}).fetch()
 			};
 		
 	}
-	console.log(data);
 	return { data: data };
 
 })(PublicationsPage);

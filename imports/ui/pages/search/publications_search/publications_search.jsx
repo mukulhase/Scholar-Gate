@@ -117,7 +117,7 @@ export class SearchPublicationsSearchPageMenu extends Component {
 
 	render() {
 		return (
-	<ul id="menu-items" className="nav nav-tabs nav-pills">
+	<ul id="menu-items" className="nav nav-tabs">
 		<li id="menu-item-simple" className={menuItemClass('search.publications_search.filter_search')}>
 			<a href={pathFor('search.publications_search.filter_search', {})}>
 				<span className="item-title">

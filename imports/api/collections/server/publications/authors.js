@@ -14,14 +14,5 @@ Meteor.publish("author", function(authorId) {
 });
 
 Meteor.publish("author_list", function() {
-	return Authors.publishJoinedCursors(Authors.find({}, {}));
+    return Authors.publishJoinedCursors(Authors.find({}, {}));
 });
-
-Meteor.publish("authors_null1", function() {
-	return Authors.publishJoinedCursors(Authors.find({_id:null}, {}));
-});
-
-Meteor.publish("author1", function(authorId) {
-	return Authors.publishJoinedCursors(Authors.find({_id:authorId}, {}));
-});
-

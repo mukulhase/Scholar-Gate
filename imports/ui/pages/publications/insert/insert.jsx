@@ -4,6 +4,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import PropTypes from "prop-types";
 import { withTracker, createContainer } from "meteor/react-meteor-data";
 import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
+import {AuthorPicker} from "../../../components/author_picker/author_picker";
 import {Loading} from "/imports/ui/pages/loading/loading.jsx";
 import {mergeObjects} from "/imports/modules/both/object_utils";
 import {Authors} from "/imports/api/collections/both/authors.js";
@@ -192,9 +193,9 @@ export class PublicationsInsertPageForm extends Component {
 
 			},
 			function(values) {
-                console.log(values);
                 values["untaggedauthors"] = values["untaggedauthors"].split(",");
                 values["authorsids"] = values["authorsids"].split(",");
+                console.log(values);
 				Meteor.call("publicationsInsert", values, function(e, r) { if(e) errorAction(e); else submitAction(r); });
 			}
 		);
@@ -270,20 +271,7 @@ export class PublicationsInsertPageForm extends Component {
 					Authors
 				</label>
 				<div className="input-div col-sm-9">
-                    <Typeahead
-                        labelKey="name"
-						name= "authorsidsnew"
-                        defaultSelected={[this.props.data.me]}
-                        multiple={true}
-                        options={this.props.data.authors_list}
-                        placeholder="Choose a state..."
-						onChange={(e)=>{
-							$("input[name='authorsids']").val(_.map(e, (obj)=>obj._id));
-						}}
-                    />
-					<input type="hidden" className="form-control " name="authorsids"/>
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
+					<AuthorPicker name="authorsids" selected={[this.props.data.me]} options={this.props.data.authors_list} placeholder="List of authors"/>
 				</div>
 			</div>
 			<div className="form-group  field-fileid">
@@ -319,9 +307,6 @@ export class PublicationsInsertPageForm extends Component {
 				<div className="input-div col-sm-9">
                     <Typeahead
                         labelKey="name"
-                        onload={()=>{
-                            $("input[name='authorsids']").val(_.map(e, (obj)=>obj._id));
-                        }}
                         allowNew
                         newSelectionPrefix="New Author: "
                         defaultSelected={[]}
@@ -353,3 +338,4 @@ export class PublicationsInsertPageForm extends Component {
 );
 	}
 }
+
