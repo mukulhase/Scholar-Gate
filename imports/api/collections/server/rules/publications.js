@@ -21,9 +21,16 @@ Publications.before.insert(function(userId, doc) {
 	doc.modifiedAt = doc.createdAt;
 	doc.modifiedBy = doc.createdBy;
 	_.forEach(doc.untaggedauthors,(obj)=>{
-        Authors.insert({
-            name: obj
-        });
+		let found = Authors.findOne({
+			name:obj,
+		});
+		if(found){
+
+		}else{
+            Authors.insert({
+                name: obj
+            });
+		}
 	});
 
 	if(!doc.user) doc.user = userId;

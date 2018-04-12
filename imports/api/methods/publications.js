@@ -5,7 +5,7 @@ Meteor.methods({
 		if(!Publications.userCanInsert(this.userId, data)) {
 			throw new Meteor.Error(403, "Forbidden.");
 		}
-
+		console.log(data);
 		return Publications.insert(data);
 	},
 
@@ -25,5 +25,15 @@ Meteor.methods({
 		}
 
 		Publications.remove({ _id: id });
-	}
+	},
+
+    "arxivBulkUpload": function(data) {
+        // { title: 'Test publication',
+        // authorsids: [ '' ],
+        // fileid: '',
+        // public: true,
+        // untaggedauthors: [ 'Random Author' ] }
+// Format required
+        return Publications.insert(data);
+    }
 });

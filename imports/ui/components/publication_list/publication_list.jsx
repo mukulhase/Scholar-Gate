@@ -131,7 +131,6 @@ export class PublicationList extends Component {
         {
           (this.props.publications && this.props.publications.length > 0) ? this.props.publications.map((obj) => (
             <PublicationSingleContainer publication={obj} key={obj._id}>
-              <Button bsStyle={'success'}> Claim </Button>
             </PublicationSingleContainer>
           )) : 'No Publications to claim'
         }

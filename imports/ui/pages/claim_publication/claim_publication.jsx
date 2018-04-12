@@ -6,6 +6,7 @@ import { Loading } from '/imports/ui/pages/loading/loading.jsx';
 import { mergeObjects } from '/imports/modules/both/object_utils';
 import { PublicationList } from '../../components/publication_list/publication_list';
 import { Publications } from '/imports/api/collections/both/publications.js';
+import {Button} from "react-bootstrap";
 
 
 export class ClaimPublicationPage extends Component {
@@ -42,7 +43,9 @@ export class ClaimPublicationPage extends Component {
           <div className="page-container container" id="content">
             <div className="row" id="title_row">
               <div className="col-md-12">
-                <PublicationList publications={this.props.data.publications} options={[{ claim: this.onClaim }]}/>
+                <PublicationList publications={this.props.data.publications}>
+                  <Button bsStyle={'success'}> Claim </Button>
+                </PublicationList>
               </div>
             </div>
           </div>

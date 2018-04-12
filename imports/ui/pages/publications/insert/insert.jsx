@@ -323,7 +323,7 @@ export class PublicationsInsertPageForm extends Component {
 					<span id="error-text" className="help-block" />
 				</div>
 			</div>
-			<div className="form-group">
+			<div className="form-group text-right">
 				<div className="submit-div btn-toolbar col-sm-9 col-sm-offset-3">
 					<a href="#" id="form-cancel-button" className="btn btn-default" onClick={this.onCancel}>
 						Cancel
