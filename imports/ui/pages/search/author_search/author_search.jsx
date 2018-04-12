@@ -384,7 +384,7 @@ export class SearchAuthorSearchPageViewTableItems extends Component {
 			{this.props.data.name}
 		</td>
 		<td onClick={this.onSelect}>
-			{this.props.data.email}
+      {this.props.data.email ? this.props.data.email : 'None'}
 		</td>
 	</tr>
 );

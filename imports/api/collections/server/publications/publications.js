@@ -36,7 +36,7 @@ Meteor.publish("my_publication_list", function(userid) {
     return Publications.publishJoinedCursors(Publications.find({
         authorsids:{
             $elemMatch:{
-                $eq: Authors.findOne({userid: this.userid}, {})._id
+              $eq: Authors.findOne({ userid: this.userId }, {})._id
             }
         }
 	}, {}));
@@ -55,6 +55,12 @@ Meteor.publish("public_search", function() {
 });
 
 Meteor.publish("claim_publications", function() {
-	return Publications.publishJoinedCursors(Publications.find({}, {}));
+  return Publications.publishJoinedCursors(Publications.find({
+    untaggedauthors: {
+      $elemMatch: {
+        $eq: Authors.findOne({ userid: this.userId }, {}).name
+      }
+    }
+  }, {}));
 });
 

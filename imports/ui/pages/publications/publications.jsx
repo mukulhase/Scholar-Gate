@@ -12,6 +12,9 @@ import * as httpUtils from "/imports/modules/client/http_utils";
 import {Markdown} from "/imports/ui/components/markdown/markdown.jsx";
 import {ConfirmationDialog} from "/imports/ui/components/confirmation_dialog/confirmation_dialog.jsx";
 
+export const linkhelper = (data) => {
+  return data.file.original ? 'https://s3-ap-southeast-1.amazonaws.com/scholargate/uploads/files/' + data.fileid + '-' + data.file.original.name : 'Not uploaded';
+};
 
 export class PublicationsPage extends Component {
 	constructor () {
@@ -422,9 +425,9 @@ export class PublicationsPageViewTableItems extends Component {
 				)
 			}
 		</td>
-		<td onClick={this.onSelect}>
+    <td>
 			{
-                this.props.data.file.original?"https://s3-ap-southeast-1.amazonaws.com/scholargate/uploads/files/"+this.props.data.fileid+"-"+this.props.data.file.original.name: "Not uploaded"
+        <a className={'btn'} href={linkhelper(this.props.data)}>Download</a>
 			}
 		</td>
 		<td>
