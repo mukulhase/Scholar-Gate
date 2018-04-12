@@ -133,7 +133,7 @@ export class PublicationList extends Component {
             <PublicationSingleContainer publication={obj} key={obj._id}>
               <Button bsStyle={'success'}> Claim </Button>
             </PublicationSingleContainer>
-          )) : 'No Results'
+          )) : 'No Publications to claim'
         }
 
       </div>
