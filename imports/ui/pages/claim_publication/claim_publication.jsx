@@ -1,83 +1,83 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withTracker, createContainer } from "meteor/react-meteor-data";
-import {pathFor, menuItemClass} from "/imports/modules/client/router_utils";
-import {Loading} from "/imports/ui/pages/loading/loading.jsx";
-import {mergeObjects} from "/imports/modules/both/object_utils";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withTracker, createContainer } from 'meteor/react-meteor-data';
+import { pathFor, menuItemClass } from '/imports/modules/client/router_utils';
+import { Loading } from '/imports/ui/pages/loading/loading.jsx';
+import { mergeObjects } from '/imports/modules/both/object_utils';
+import { PublicationList } from '../../components/publication_list/publication_list';
+import { Publications } from '/imports/api/collections/both/publications.js';
 
 
 export class ClaimPublicationPage extends Component {
-	constructor () {
-		super();
-		
-	}
+  constructor() {
+    super();
 
-	componentWillMount() {
-		
-	}
+  }
 
-	componentWillUnmount() {
-		
-	}
+  componentWillMount() {
 
-	componentDidMount() {
-		
+  }
 
-		Meteor.defer(function() {
-			globalOnRendered();
-		});
-	}
+  componentWillUnmount() {
 
-	
+  }
 
-	
+  componentDidMount() {
 
-	render() {
-		if(this.props.data.dataLoading) {
-			return (
-	<Loading />
-);
-		} else {
-			return (
-	<div>
-		<div className="page-container container" id="content">
-			<div className="row" id="title_row">
-				<div className="col-md-12">
-				</div>
-			</div>
-		</div>
-	</div>
-);
-		}
-	}
+
+    Meteor.defer(function() {
+      globalOnRendered();
+    });
+  }
+
+
+  render() {
+    if (this.props.data.dataLoading) {
+      return (
+        <Loading/>
+      );
+    } else {
+      return (
+        <div>
+          <div className="page-container container" id="content">
+            <div className="row" id="title_row">
+              <div className="col-md-12">
+                <PublicationList publications={this.props.data.publications} options={[{ claim: this.onClaim }]}/>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
 }
 
 export const ClaimPublicationPageContainer = withTracker(function(props) {
-		var isReady = function() {
-		
+  var isReady = function() {
 
-		var subs = [
-		];
-		var ready = true;
-		_.each(subs, function(sub) {
-			if(!sub.ready())
-				ready = false;
-		});
-		return ready;
-	};
 
-	var data = { dataLoading: true };
+    var subs = [
+      Meteor.subscribe('claim_publications')
+    ];
+    var ready = true;
+    _.each(subs, function(sub) {
+      if (!sub.ready())
+        ready = false;
+    });
+    return ready;
+  };
 
-	if(isReady()) {
-		
+  var data = { dataLoading: true };
 
-		data = {
+  if (isReady()) {
 
-			};
-		
 
-		
-	}
-	return { data: data };
+    data = {
+      publications: Publications.find().fetch()
+    };
+
+
+  }
+  return { data: data };
 
 })(ClaimPublicationPage);

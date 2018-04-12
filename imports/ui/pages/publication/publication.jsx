@@ -15,6 +15,8 @@ import {Files} from "/imports/api/collections/both/files.js";
 import * as httpUtils from "/imports/modules/client/http_utils";
 import {Markdown} from "/imports/ui/components/markdown/markdown.jsx";
 import {ConfirmationDialog} from "/imports/ui/components/confirmation_dialog/confirmation_dialog.jsx";
+import { Label } from 'react-bootstrap';
+import { linkhelper } from '../publications/publications';
 
 
 export class PublicationPage extends Component {
@@ -88,14 +90,21 @@ export const PublicationPageContainer = withTracker(function(props) {
 		
 
 		data = {
-
-				authors_list: Authors.find({}, {}).fetch(),
 				publication: Publications.findOne({_id:props.routeParams.publicationId}, {}),
-				comment_list: Comments.find({}, {}).fetch()
 			};
-		
+    data.authors_list = Authors.find({
+      _id: {
+        $in: data.publication.authorsids
+      }
+    }, {}).fetch();
+    data.comment_list = Comments.find({
+      _id: {
+        $in: data.publication.commentsids ? data.publication.commentsids : []
+      }
+    }, {}).fetch();
 
-		
+
+
 	}
 	return { data: data };
 
@@ -103,18 +112,6 @@ export const PublicationPageContainer = withTracker(function(props) {
 export class PublicationPagePublicationView extends Component {
 	constructor () {
 		super();
-
-		this.state = {
-			publicationPagePublicationViewErrorMessage: "",
-			publicationPagePublicationViewInfoMessage: ""
-		};
-
-		this.renderErrorMessage = this.renderErrorMessage.bind(this);
-		this.renderInfoMessage = this.renderInfoMessage.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
-		this.onCancel = this.onCancel.bind(this);
-		this.onClose = this.onClose.bind(this);
-		this.onBack = this.onBack.bind(this);
 		
 	}
 
@@ -127,199 +124,25 @@ export class PublicationPagePublicationView extends Component {
 	}
 
 	componentDidMount() {
-		
-
-		$("select[data-role='tagsinput']").tagsinput();
-		$(".bootstrap-tagsinput").addClass("form-control");
-		$("input[type='file']").fileinput();
 	}
-
-	renderErrorMessage() {
-		return(
-	<div className="alert alert-warning">
-		{this.state.publicationPagePublicationViewErrorMessage}
-	</div>
-);
-	}
-
-	renderInfoMessage() {
-		return(
-	<div className="alert alert-success">
-		{this.state.publicationPagePublicationViewInfoMessage}
-	</div>
-);
-	}
-
-	onSubmit(e) {
-		e.preventDefault();
-		this.setState({ publicationPagePublicationViewInfoMessage: "" });
-		this.setState({ publicationPagePublicationViewErrorMessage: "" });
-
-		var self = this;
-		var $form = $(e.target);
-
-		function submitAction(result, msg) {
-			var publicationPagePublicationViewMode = "insert";
-			if(!$("#publication-page-publication-view").find("#form-cancel-button").length) {
-				switch(publicationPagePublicationViewMode) {
-					case "insert": {
-						$form[0].reset();
-					}; break;
-
-					case "update": {
-						var message = msg || "Saved.";
-						self.setState({ publicationPagePublicationViewInfoMessage: message });
-					}; break;
-				}
-			}
-
-			/*SUBMIT_REDIRECT*/
-		}
-
-		function errorAction(msg) {
-			msg = msg || "";
-			var message = msg.message || msg || "Error.";
-			self.setState({ publicationPagePublicationViewErrorMessage: message });
-		}
-
-		formUtils.validateForm(
-			$form,
-			function(fieldName, fieldValue) {
-
-			},
-			function(msg) {
-
-			},
-			function(values) {
-				
-
-				Meteor.call("publicationsInsert", values, function(e, r) { if(e) errorAction(e); else submitAction(r); });
-			}
-		);
-
-		return false;
-	}
-
-	onCancel(e) {
-		e.preventDefault();
-		self = this;
-		
-
-		/*CANCEL_REDIRECT*/
-	}
-
-	onClose(e) {
-		e.preventDefault();
-		self = this;
-
-		/*CLOSE_REDIRECT*/
-	}
-
-	onBack(e) {
-		e.preventDefault();
-		self = this;
-
-		/*BACK_REDIRECT*/
-	}
-
-	onFileUpload(e) {
-	e.preventDefault();
-	var fileInput = $(e.currentTarget);
-	var dataField = fileInput.attr("data-field");
-	var hiddenInput = fileInput.closest("form").find("input[name='" + dataField + "']");
-
-	FS.Utility.eachFile(e, function(file) {
-		Files.insert(file, function (err, fileObj) {
-			if(err) {
-				console.log(err);
-			} else {
-				hiddenInput.val(fileObj._id);
-			}
-		});
-	});
-}
-
 
 	
 
 	render() {
 		return (
-	<div id="publication-page-publication-view" className="">
+      <div class id="publication-page-publication-view" className="">
 		<h2 id="component-title">
 			<span id="component-title-icon" className="">
 			</span>
+      {this.props.data.publication.title}
 		</h2>
-		<form role="form" onSubmit={this.onSubmit}>
-			{this.state.publicationPagePublicationViewErrorMessage ? this.renderErrorMessage() : null}
-					{this.state.publicationPagePublicationViewInfoMessage ? this.renderInfoMessage() : null}
-			<div className="form-group  field-title">
-				<label htmlFor="title">
-					Title
-				</label>
-				<div className="input-div">
-					<input type="text" name="title" defaultValue="" className="form-control " autoFocus="autoFocus" data-type="string" />
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
-				</div>
-			</div>
-			<div className="form-group  field-authorsids">
-				<label htmlFor="authorsids">
-					Authors
-				</label>
-				<div className="input-div">
-					<select multiple="multiple" className="form-control " name="authorsids" data-type="array">
-						{this.props.data.authors_list.map(function(item, index) { return(
-						<option key={"dynamic-" + index} value={item._id}>							{item.name}</option>
-						); }) }
-					</select>
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
-				</div>
-			</div>
-			<div className="form-group  field-fileid">
-				<label htmlFor="fileid">
-					File
-				</label>
-				<div className="input-div">
-					<input type="file" id="field-fileid" className="file " multiple="false" data-show-upload="false" data-show-caption="true" data-field="fileid" onChange={this.onFileUpload} />
-					<input type="hidden" name="fileid" defaultValue="" />
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
-				</div>
-			</div>
-			<div className="form-group  field-public">
-				<div className="input-div" data-required="true">
-					<div className="checkbox">
-						<label>
-							<input type="checkbox" defaultChecked="" name="public" data-type="bool" />
-							Public
-						</label>
-					</div>
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
-				</div>
-			</div>
-			<div className="form-group  field-untaggedauthors">
-				<label htmlFor="untaggedauthors">
-					Unregistered Authors
-				</label>
-				<div className="input-div">
-					<select multiple="multiple" data-role="tagsinput" className="form-control " name="untaggedauthors" data-type="array">
-						{objectUtils.getArray("").map(function(tag, ndx) {
-					return(
-						<option key={ndx} value={tag} id="form-input-tags-item">							{tag}</option>
-						);
-				})}
-					</select>
-					<span id="help-text" className="help-block" />
-					<span id="error-text" className="help-block" />
-				</div>
-			</div>
-			<div className="form-group">
-				<div className="submit-div btn-toolbar">
-				</div>
-			</div>
-		</form>
+        <h3>
+          By: {this.props.data.authors_list.map((obj) => <Label bsStyle={'primary'}>{obj.name}</Label>)}
+        </h3>
+        <p>Abstract not parsed</p>
+        {
+          <a className={'btn btn-primary'} href={linkhelper(this.props.data.publication)}>Download</a>
+        }
 	</div>
 );
 	}

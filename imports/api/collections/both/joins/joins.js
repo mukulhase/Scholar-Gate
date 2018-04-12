@@ -7,7 +7,6 @@ import {Users} from "meteor-user-roles";
 
 // Publications
 Publications.join(Authors, "authorsids", "authors", ["name"]);
-Publications.join(Comments, "commentsids", "comments", ["content", "user"]);
 Publications.join(Reports, "reportsids", "reports", []);
 Publications.join(Files.files, "fileid", "file");
 

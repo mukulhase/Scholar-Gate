@@ -289,7 +289,7 @@ export class PublicationsInsertPageForm extends Component {
 				<label htmlFor="public" className="col-sm-3 control-label">
 					&nbsp;
 				</label>
-				<div className="input-div col-sm-9" data-required="true">
+        <div className="input-div col-sm-9">
 					<div className="checkbox">
 						<label>
 							<input type="checkbox" defaultChecked="" name="public" data-type="bool" />

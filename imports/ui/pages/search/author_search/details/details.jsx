@@ -63,7 +63,7 @@ export const SearchAuthorSearchDetailsPageContainer = withTracker(function(props
 		
 
 		var subs = [
-			Meteor.subscribe("author1", props.routeParams.authorId)
+      Meteor.subscribe('author', props.routeParams.authorId)
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
