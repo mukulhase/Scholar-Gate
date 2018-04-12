@@ -114,7 +114,11 @@ export class HomePublicPageHomeJumbotron extends Component {
 				Scholar Gate
 			</h1>
 			<p id="jumbotron-text">
-			</p>
+        THINK. RESEARCH. SHARE.
+      </p>
+      <p id="jumbotron-text">
+        One Stop Solution for all Things 'Research'.
+      </p>
 			<p id="jumbotron-button">
 				<a href={pathFor('login')} className="btn btn-primary btn-lg" role="button">
 					Continue &raquo;

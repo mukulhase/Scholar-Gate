@@ -48,6 +48,7 @@ export class HomePrivatePage extends Component {
 						Welcome {userFullName()}!
 					</h2>
 				</div>
+        <p>You can View, Upload, Search, Claim existing publications.</p>
 			</div>
 		</div>
 	</div>
