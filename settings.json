@@ -1,0 +1,7 @@
+{
+  "galaxy.meteor.com": {
+    "env": {
+      "MONGO_URL": "mongodb://mukul:mukul123@ds239359.mlab.com:39359/scholargate"
+    }
+  }
+}
