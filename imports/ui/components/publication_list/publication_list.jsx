@@ -84,14 +84,18 @@ export const PublicationSingleContainer = withTracker(function(props) {
   };
 
   if (isReady()) {
-    data = {
-      authors_list: Authors.find({
-        _id: {
-          $in: props.publication.authorsids
-        }
-      }, {}).fetch()
-      // reports_pos: Reports.find({})
-    };
+    if(!props.publication.authorsids || props.publication.authorsids.length===0){
+        data = {authors_list:[]}
+    }else{
+        data = {
+            authors_list: Authors.find({
+                _id: {
+                    $in: props.publication.authorsids
+                }
+            }, {}).fetch()
+            // reports_pos: Reports.find({})
+        };
+    }
 
 
   }
