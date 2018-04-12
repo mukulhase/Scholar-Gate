@@ -6,15 +6,11 @@ import {Loading} from "/imports/ui/pages/loading/loading.jsx";
 import {mergeObjects} from "/imports/modules/both/object_utils";
 import {userEmail, userFullName} from "/imports/modules/client/account_utils";
 import {PublicationList} from "../../components/publication_list/publication_list";
+import { Publications } from '../../../api/collections/both/publications';
 
 
 export const HomePublicationList = withTracker(function(props){
     let results = [];
-    let values = props.query;
-    if (!values){
-        return {publications: []}
-    }
-    console.log(values);
     var isReady = function () {
         var subs = [
             Meteor.subscribe("publication_list"),
@@ -27,18 +23,11 @@ export const HomePublicationList = withTracker(function(props){
         return ready;
     };
     if (isReady()) {
-        if (values.authorsids.length > 0) {
-            results = Publications.find({
-            }, {
-                // sort: [["score", "desc"]]
-            }).fetch();
-        } else {
-            results = Publications.find({
-            }, {
-            }).fetch();
-        }
+      results = Publications.find({}, {
+        // sort: [["score", "desc"]]
+      }).fetch();
     }
-    // Meteor.subscribe("publication_list", values.title);
+  console.log(results);
     return {publications: results}
 })(PublicationList);
 
