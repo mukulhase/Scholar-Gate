@@ -42,7 +42,7 @@ export class SearchPublicationsSearchPage extends Component {
 	<div className="page-container container">
 		<div className="row">
 			<div className="col-md-12" id="content">
-				<div className="row" id="title_row">
+				<div className=Added Claims and"row" id="title_row">
 					<div className="col-md-12">
 					</div>
 				</div>

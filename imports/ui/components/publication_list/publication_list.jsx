@@ -280,4 +280,3 @@ export class PublicationListWithClaim extends Component {
         );
     }
 }
-
