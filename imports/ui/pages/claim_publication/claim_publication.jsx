@@ -44,7 +44,7 @@ export class ClaimPublicationPage extends Component {
             <div className="row" id="title_row">
               <div className="col-md-12">
                 <PublicationList publications={this.props.data.publications}>
-                  <Button bsStyle={'success'}> Claim </Button>
+                  <Button bsStyle={'success'} onClick={()=>{this.claim()}}> Claim </Button>
                 </PublicationList>
               </div>
             </div>

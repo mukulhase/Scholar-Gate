@@ -1,4 +1,5 @@
 import {Publications} from "/imports/api/collections/both/publications.js";
+import {Authors} from "../collections/both/authors";
 
 Meteor.methods({
 	"publicationsInsert": function(data) {
@@ -35,5 +36,19 @@ Meteor.methods({
         // untaggedauthors: [ 'Random Author' ] }
 // Format required
         return Publications.insert(data);
+    },
+
+
+    "claimPublication": function(id) {
+		let pub = Publications.findOne({
+			_id: id
+		});
+        let author = Authors.findOne({
+			userid: this.userid
+		});
+        return pub.update({
+                authorsids: [author._id]
+            }
+        );
     }
 });

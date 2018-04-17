@@ -55,7 +55,7 @@ export class PublicationSingle extends Component {
           {
             <a className={'btn'} href={linkhelper(this.props.publication)}>Download</a>
           }
-          {this.props.children}
+          {<this className="props children"></this>}
         </Panel.Footer>
       </Panel>
     );
